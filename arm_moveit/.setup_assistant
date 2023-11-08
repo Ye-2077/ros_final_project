@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ros_arm
+    relative_path: arm/xacro/arm_1.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/arm_1.srdf
+  CONFIG:
+    author_name: Yenan
+    author_email: 12111813@mail.sustech.edu.cn
+    generated_timestamp: 1699460436
