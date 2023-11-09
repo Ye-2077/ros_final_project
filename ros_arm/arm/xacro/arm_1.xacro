@@ -23,19 +23,19 @@
 
     <!-- link1 properties -->
     <xacro:property name="link1_width" value="0.03" />
-    <xacro:property name="link1_len" value="0.10" />
+    <xacro:property name="link1_len" value="0.15" />
 
     <!-- link2 properties -->
     <xacro:property name="link2_width" value="0.03" />
-    <xacro:property name="link2_len" value="0.14" />
+    <xacro:property name="link2_len" value="0.22" />
 
     <!-- link3 properties -->
     <xacro:property name="link3_width" value="0.03" />
-    <xacro:property name="link3_len" value="0.22" />
+    <xacro:property name="link3_len" value="0.14" />
 
     <!-- link4 properties -->
     <xacro:property name="link4_width" value="0.025" />
-    <xacro:property name="link4_len" value="0.06" />
+    <xacro:property name="link4_len" value="0.03" />
 
     <!-- link5 properties -->
     <xacro:property name="link5_width" value="0.03" />
@@ -86,7 +86,7 @@
                 <box size="0.1 0.1 0.02" />
             </geometry>
         </collision>
-        <xacro:inertial_matrix mass="500"/>
+        <xacro:inertial_matrix mass="50000"/>
     </link>
 
     <!-- /////////////////////////////////////   BASE LINK    ////////////////////////////////////////////// -->
