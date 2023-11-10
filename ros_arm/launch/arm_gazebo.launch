@@ -3,7 +3,7 @@
     <param name="robot_description" command="$(find xacro)/xacro $(find ros_arm)/arm/xacro/arm.xacro" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find ros_arm)/config/gazebo_world/arm_test.world" />
+        <!-- <arg name="world_name" value="$(find ros_arm)/config/gazebo_world/arm_test.world" /> -->
     </include>
     <include file="$(find ros_arm)/launch/arm_gazebo_control.launch" />
 
