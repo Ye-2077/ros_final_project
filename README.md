@@ -9,7 +9,7 @@ ATTENTION PLEASE
 
 ## Moveit
 ---
-**1. Install Moviet**
+**1. Install Moveit**
 
 System: Ubuntu 20.04  
 ROS version: ros-noetic  
