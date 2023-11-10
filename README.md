@@ -6,9 +6,10 @@ ATTENTION PLEASE
 - Users of this repository are responsible for abiding by academic integrity principles and checking the specific attribution and licensing details associated with any non-original content
 - By accessing and using the materials in this repository, you agree to respect the principles of academic integrity and use the content responsibly. Any misuse or academic dishonesty is the sole responsibility of the user.
 
+---
 
 ## Moveit
----
+
 **1. Install Moveit**
 
 System: Ubuntu 20.04  
@@ -48,20 +49,23 @@ $ source ~/{your_workspace}/devel/setup.bash # or .zsh, depending on your shell
 
 Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html)
 
+---
 
 ## How to use
----
-**1. Terminal_1**  
+
+**1. Joint control test**  
+
+- Terminal_1 
 ```
 $ roslaunch ros_arm arm_rviz.launch
 ```
-**2. Terminal_2**  
+- Terminal_2
 ```
 $ roslaunch ros_arm arm_gazebo.launch 
 ```
 if there is erro in camera, click the reset button in the rviz  
 
-**3. Terminal_3**  
+- Terminal_3
 you can use this to pub control command
 ```
 $ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" 
