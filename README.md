@@ -62,7 +62,7 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 ```
 $ roslaunch ros_arm arm_rviz.launch
 ```
-  if there is erro in camera, after next step then click the "reset" button in the rviz  
+  if there is error in camera, after next step then click the "reset" button in the rviz  
 - Terminal_2
 ```
 $ roslaunch ros_arm arm_gazebo.launch 
