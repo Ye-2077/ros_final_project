@@ -61,22 +61,23 @@ this part is to test if the joint controller works correctly, and use test_mover
 ```
 $ roslaunch ros_arm arm_rviz.launch
 ```
-if there is erro in camera, after next step then click the "reset" button in the rviz  
+  if there is erro in camera, after next step then click the "reset" button in the rviz  
 - Terminal_2
 ```
 $ roslaunch ros_arm arm_gazebo.launch 
 ```
 - Terminal_3  
-you can pub control command like this
+  you can pub control command like this
 ```
 $ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" 
 ```
 - Terminal_4
-kill Terminal_3, the run test_mover.py
+  kill Terminal_3, the run test_mover.py
 ```
 $ python ros_arm/src/test_mover.py 
 ```
 
+  
 **2. Camera** 
 
 this part is to test the Camera
