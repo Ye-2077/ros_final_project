@@ -6,9 +6,10 @@ ATTENTION PLEASE
 - Users of this repository are responsible for abiding by academic integrity principles and checking the specific attribution and licensing details associated with any non-original content
 - By accessing and using the materials in this repository, you agree to respect the principles of academic integrity and use the content responsibly. Any misuse or academic dishonesty is the sole responsibility of the user.
 
+---
 
 ## Moveit
----
+
 **1. Install Moveit**
 
 System: Ubuntu 20.04  
@@ -48,9 +49,10 @@ $ source ~/{your_workspace}/devel/setup.bash # or .zsh, depending on your shell
 
 Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html)
 
+---
 
 ## How to use
----
+
 **1. Terminal_1**  
 ```
 $ roslaunch ros_arm arm_rviz.launch
