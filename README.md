@@ -52,6 +52,17 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 
 ---
 
+## Prepare the Camera
+
+  install camera-driver
+```
+$ sudo apt-get install ros-noetic-usb-cam
+```
+  test if it install correctly
+```
+$ roslaunch usb_cam usb_cam-test.launch
+```
+
 ## How To Use
 
 **1. Joint control & Mover**  
@@ -79,7 +90,7 @@ $ python ros_arm/src/test_mover.py
 ```
 
   
-**2. Camera** 
+**2. Camera Test** 
 
 *this part is to test the Camera*
 
