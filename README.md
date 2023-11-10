@@ -21,7 +21,8 @@ This project includes the Moveit! in the `Moveit` package, you can just run belo
 $ catkin buld Moveit # run this in your workspace path
 ```
 
-Or you can ignore this and download by yourself (then please deleat the Moveit package and follow below steps)
+Or you can ignore this and download by yourself (then please deleat the Moveit package and follow below steps)  
+You can refer to https://moveit.ros.org/install/source/
 
 - create new workspace or just in your own ws 
 ```
