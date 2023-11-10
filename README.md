@@ -47,3 +47,22 @@ $ source ~/{your_workspace}/devel/setup.bash # or .zsh, depending on your shell
 **2. Check if Moveit works**  
 
 Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html)
+
+
+## How to use
+---
+**1. Terminal_1**  
+```
+$ roslaunch ros_arm arm_rviz.launch
+```
+**2. Terminal_2**  
+```
+$ roslaunch ros_arm arm_gazebo.launch 
+```
+if there is erro in camera, click the reset button in the rviz  
+
+**3. Terminal_3**  
+you can use this to pub control command
+```
+$ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" 
+```
