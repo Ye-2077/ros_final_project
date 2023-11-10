@@ -45,4 +45,5 @@ $ catkin build
 $ source ~/{your_workspace}/devel/setup.bash # or .zsh, depending on your shell
 ```
 **2. Check if Moveit works**  
+
 Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html)
