@@ -56,7 +56,7 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 
 **1. Joint control & Mover**  
 
-this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply  
+*this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply*    
 
 - Terminal_1 
 ```
@@ -81,7 +81,7 @@ $ python ros_arm/src/test_mover.py
   
 **2. Camera** 
 
-this part is to test the Camera
+*this part is to test the Camera*
 
 - Terminal_1 
 ```
