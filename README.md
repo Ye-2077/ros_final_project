@@ -53,12 +53,13 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 ---
 
 ## Prepare the Camera
+*this enable you to use your laptap's camera*
 
-  install camera-driver
+- install camera-driver
 ```
 $ sudo apt-get install ros-noetic-usb-cam
 ```
-  test if it install correctly
+- test if it install correctly
 ```
 $ roslaunch usb_cam usb_cam-test.launch
 ```
