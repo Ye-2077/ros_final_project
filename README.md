@@ -51,22 +51,46 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 
 ---
 
-## How to use
+## How To Use
 
-**1. Joint control test**  
+**1. Joint control & Mover**  
+
+this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply  
 
 - Terminal_1 
 ```
 $ roslaunch ros_arm arm_rviz.launch
 ```
+if there is erro in camera, after next step then click the "reset" button in the rviz  
 - Terminal_2
 ```
 $ roslaunch ros_arm arm_gazebo.launch 
 ```
-if there is erro in camera, click the reset button in the rviz  
-
-- Terminal_3
-you can use this to pub control command
+- Terminal_3  
+you can pub control command like this
 ```
 $ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" 
 ```
+- Terminal_4
+kill Terminal_3, the run test_mover.py
+```
+$ python ros_arm/src/test_mover.py 
+```
+
+**2. Camera** 
+
+this part is to test the Camera
+
+- Terminal_1 
+```
+$ roslaunch ros_arm arm_gazebo.launch 
+```
+- Terminal_2  
+```
+$ rqt_image_view /rgb_camera/image_raw 
+```
+- Terminal_3
+```
+$ python [path to ros_arm]/src/test_camera_mover.py
+```
+
