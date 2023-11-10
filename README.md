@@ -16,7 +16,7 @@ System: Ubuntu 20.04
 ROS version: ros-noetic  
 Refer to https://moveit.ros.org/install/source/
 
-This project includes the Moveit! in the `Moveit` package, you can just run below code to install the Moveit!
+This project includes the Moveit! in the `Moveit` package, you can just run below code to build the Moveit!
 ```
 $ catkin buld Moveit # run this in your workspace path
 ```
