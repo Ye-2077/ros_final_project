@@ -1,7 +1,7 @@
 <launch>
 
     <!-- load params of joint into master -->
-    <rosparam file="$(find ros_arm)/config/controllers/arm_1_gazebo_control.yaml" command="load"/>
+    <rosparam file="$(find ros_arm)/config/controllers/arm_gazebo_control.yaml" command="load"/>
 
     <!-- load controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"

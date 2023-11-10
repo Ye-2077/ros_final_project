@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
-    <param name="robot_description" command="$(find xacro)/xacro $(find ros_arm)/arm/xacro/arm_1.xacro" />
-    <node pkg="rviz" type="rviz" name="arm_rviz" args ="-d $(find ros_arm)/config/rviz/arm_1.rviz" />
+    <param name="robot_description" command="$(find xacro)/xacro $(find ros_arm)/arm/xacro/arm.xacro" />
+    <node pkg="rviz" type="rviz" name="arm_rviz" args ="-d $(find ros_arm)/config/rviz/arm.rviz" />
 
     <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
     <!-- <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" /> -->
