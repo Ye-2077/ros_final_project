@@ -7,5 +7,12 @@
     </include>
     <include file="$(find ros_arm)/launch/arm_gazebo_control.launch" />
 
-    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model arm -param robot_description"  />
+    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model arm -param robot_description" />
+    <node pkg="ros_arm" type="arm_mover.py" name="arm_mover">
+        <rosparam>
+            min_joint_angle: -1.57
+            max_joint_angle: 1.57
+        </rosparam>
+    </node>
+
 </launch>
