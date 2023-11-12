@@ -118,5 +118,5 @@ $ roslaunch ros_arm arm_gazebo.launch
 ```
 - Terminal_2
 ```
-$ rosservice call /arm_mover/arm_mover "{joint1: 0.0, joint2: 0.0, joint3: -1.0, joint4: 1.0, joint5: 0.0, joint6: 0.0}"
+$ rosservice call /arm_mover/arm_mover "{joint1: 0.0, joint2: 0.0, joint3: -1.0, joint4: 1.0, joint5: 0.0, joint6: 0.0, finger_joint1: 0.0, finger_joint2: 0.0}"
 ```
