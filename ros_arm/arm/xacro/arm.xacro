@@ -275,7 +275,7 @@
         <child link="gripper_finger_link1"/>
         <origin xyz="0.0 0 0" />
         <axis xyz="0 1 0" />
-        <limit effort="100" lower="0" upper="0.025" velocity="1.0"/>
+        <limit effort="100" lower="0" upper="0.015" velocity="0.05"/>
         <dynamics damping="50" friction="1"/>
     </joint>
     
@@ -297,7 +297,7 @@
         <child link="gripper_finger_link2"/>
         <origin xyz="0.0 0 0" />
         <axis xyz="0 -1 0" />
-        <limit effort="100" lower="0" upper="0.025" velocity="1.0"/>
+        <limit effort="100" lower="0" upper="0.015" velocity="0.05"/>
         <dynamics damping="50" friction="1"/>
     </joint>
 

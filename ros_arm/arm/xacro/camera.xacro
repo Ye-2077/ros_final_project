@@ -6,10 +6,10 @@
     <xacro:include filename="utils_inertia.xacro" />
 
     <!-- properties -->
-    <xacro:property name="camera_length" value="0.01" /> <!-- length(x) -->
-    <xacro:property name="camera_width" value="0.045" /> <!-- width(y) -->
-    <xacro:property name="camera_height" value="0.025" /> <!-- height(z) -->
-    <xacro:property name="camera_x" value="0.02" /> <!-- connection_pos x -->
+    <xacro:property name="camera_length" value="0.001" /> <!-- length(x) -->
+    <xacro:property name="camera_width" value="0.01" /> <!-- width(y) -->
+    <xacro:property name="camera_height" value="0.01" /> <!-- height(z) -->
+    <xacro:property name="camera_x" value="0.0205" /> <!-- connection_pos x -->
     <xacro:property name="camera_y" value="0.0" /> <!-- connection_pos y -->
     <xacro:property name="camera_z" value="0.0" /> <!-- connection_pos z -->
     
@@ -39,6 +39,6 @@
         <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="3.1416 0.0 0.0" />
     </joint>
     <gazebo reference="camera">
-        <material>Gazebo/Blue</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 </robot>

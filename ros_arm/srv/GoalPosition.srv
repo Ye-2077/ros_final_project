@@ -5,6 +5,8 @@ float64 joint3
 float64 joint4
 float64 joint5
 float64 joint6
+float64 finger_joint1
+float64 finger_joint2
 ---
 # the costing time
 duration time_elapsed

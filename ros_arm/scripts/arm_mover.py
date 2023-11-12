@@ -66,8 +66,10 @@ def handle_move_request(req):
     joint4 = req.joint4
     joint5 = req.joint5
     joint6 = req.joint6
-    joints = [joint1, joint2, joint3, joint4, joint5, joint6]
-    clamp_joint = [0, 0, 0, 0, 0, 0]
+    finger_joint1 = req.finger_joint1
+    finger_joint2 = req.finger_joint2
+    joints = [joint1, joint2, joint3, joint4, joint5, joint6, finger_joint1, finger_joint2]
+    clamp_joint = [0, 0, 0, 0, 0, 0, 0, 0]
 
     for i in range(len(joints)):
         rospy.loginfo('GoToPositionRequest Received - j%s:%s,', i, joints[i])
@@ -92,6 +94,8 @@ if __name__ == '__main__':
     pub_j4 = rospy.Publisher('/arm/joint4_position_controller/command', Float64, queue_size=10)
     pub_j5 = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     pub_j6 = rospy.Publisher('/arm/joint6_position_controller/command', Float64, queue_size=10)
+    pub_j7 = rospy.Publisher('/arm/finger_joint1_position_controller/command', Float64, queue_size=10)
+    pub_j8 = rospy.Publisher('/arm/finger_joint2_position_controller/command', Float64, queue_size=10)
     try:
         mover_service()
     except rospy.ROSInterruptException:
