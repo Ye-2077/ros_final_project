@@ -79,7 +79,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 - Terminal_4: kill Terminal_3, the run test_mover.py: `$ python ros_arm/src/test_mover.py `
 
   
-**2. Camera Test** 
+**2. Camera Test**
 
 *this part is to test the Camera*
 
@@ -87,7 +87,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 - Terminal_2: `$ rqt_image_view /rgb_camera/image_raw `
 - Terminal_3: `$ python [path to ros_arm]/src/test_camera_mover.py`
 
-**3. Joint Control Service**  
+**3. Joint Control Service**
 
 *this part is to test the arm_mover.py and the joint control service*  
 
