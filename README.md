@@ -88,12 +88,16 @@ $ roslaunch usb_cam usb_cam-test.launch
 - Terminal_3: `$ python [path to ros_arm]/src/test_camera_mover.py`
 
 **3. Joint Control Service**  
+
 *this part is to test the arm_mover.py and the joint control service*  
+
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch` 
 - Terminal_2: `$ rosservice call /arm_mover/arm_mover "{joint1: 0.0, joint2: 0.0, joint3: -1.0, joint4: 1.0, joint5: 0.0, joint6: 0.0, finger_joint1: 0.0, finger_joint2: 0.0}"`
 
 **4. Image Process Test**
+
 *this part is to test image_process.py, used to identify the box with CV*
+
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch `
 - Terminal_2: `$ rosrun ros_arm initial_mover.py # remeber to sudo chmod 777 this file`
 - Terminal_3: `$ rosrun ros_arm image_process.py `
