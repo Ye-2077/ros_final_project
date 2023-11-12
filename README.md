@@ -96,7 +96,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 **4. Image Process Test**
 
-*this part is to test image_process.py, used to identify the box with CV*
+*this part is to test image_process.py, used to identify the box with CV*  
 
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch `
 - Terminal_2: `$ rosrun ros_arm initial_mover.py # remeber to sudo chmod 777 this file`
