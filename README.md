@@ -70,7 +70,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 **1. Joint control & Mover**  
 
-  *this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply*    
+*this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply*    
 
 - Terminal_1: `$ roslaunch ros_arm arm_rviz.launch`
   if there is error in camera, after next step then click the "reset" button in the rviz  
@@ -81,7 +81,7 @@ $ roslaunch usb_cam usb_cam-test.launch
   
 **2. Camera Test**
 
-  *this part is to test the Camera*
+*this part is to test the Camera*
 
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch `
 - Terminal_2: `$ rqt_image_view /rgb_camera/image_raw `
@@ -89,19 +89,19 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 **3. Joint Control Service**
 
-  *this part is to test the arm_mover.py and the joint control service*  
+*this part is to test the arm_mover.py and the joint control service*  
 
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch` 
 - Terminal_2: `$ rosservice call /arm_mover/arm_mover "{joint1: 0.0, joint2: 0.0, joint3: -1.0, joint4: 1.0, joint5: 0.0, joint6: 0.0, finger_joint1: 0.0, finger_joint2: 0.0}"`
 
 **4. Image Process Test**
 
-  *this part is to test image_process.py, used to identify the box with CV*  
+*this part is to test image_process.py, used to identify the box with CV*  
 
 - Terminal_1: `$ roslaunch ros_arm arm_gazebo.launch `
 - Terminal_2: `$ rosrun ros_arm initial_mover.py # remeber to sudo chmod 777 this file`
 - Terminal_3: `$ rosrun ros_arm image_process.py `
 - Terminal_4: `$ rqt_image_view /rgb_camera/image_processed`
 
-  you can also open another terminal and run `rqt_image_view /rgb_camera/image_raw`  
-  you can compare these two graphs and find the differences
+you can also open another terminal and run `rqt_image_view /rgb_camera/image_raw`  
+you can compare these two graphs and find the differences
