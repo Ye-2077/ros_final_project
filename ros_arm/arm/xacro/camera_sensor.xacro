@@ -3,10 +3,10 @@
   <gazebo reference="camera">
     <!-- set type as camara -->
     <sensor type="camera" name="rgb_camera">
-      <update_rate>30.0</update_rate> <!-- frequence -->
+      <update_rate>60.0</update_rate> <!-- frequence -->
       
       <!-- properties of camera -->
-      <camera name="head">
+      <camera name="rgb_camera">
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
           <width>1280</width>
@@ -32,7 +32,7 @@
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
-        <hackBaseline>0.07</hackBaseline>
+        <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
         <distortionK3>0.0</distortionK3>
