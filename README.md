@@ -72,13 +72,11 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 *this part is to test if the joint controller works correctly, and use test_mover.py let the arm moves looply*    
 
-- Terminal_1 `$ roslaunch ros_arm arm_rviz.launch`
+- Terminal_1: `$ roslaunch ros_arm arm_rviz.launch`
   if there is error in camera, after next step then click the "reset" button in the rviz  
-- Terminal_2 `$ roslaunch ros_arm arm_gazebo.launch `
-- Terminal_3  
-  you can pub control command like this: `$ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" `
-- Terminal_4
-  kill Terminal_3, the run test_mover.py: `$ python ros_arm/src/test_mover.py `
+- Terminal_2: `$ roslaunch ros_arm arm_gazebo.launch `
+- Terminal_3: you can pub control command like this: `$ rostopic pub /arm/joint3_position_controller/command std_msgs/Float64 "data: 1.57" `
+- Terminal_4: kill Terminal_3, the run test_mover.py: `$ python ros_arm/src/test_mover.py `
 
   
 **2. Camera Test** 
