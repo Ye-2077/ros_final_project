@@ -127,5 +127,6 @@ $ rosservice call /arm_mover/arm_mover "{joint1: 0.0, joint2: 0.0, joint3: -1.0,
 - Terminal_2 `$ rosrun ros_arm initial_mover.py # remeber to sudo chmod 777 this file`
 - Terminal_3 `$ rosrun ros_arm image_process.py `
 - Terminal_4 `$ rqt_image_view /rgb_camera/image_processed`
+
   you can also open another terminal and run `rqt_image_view /rgb_camera/image_raw`  
   you can compare these two graphs and find the differences
