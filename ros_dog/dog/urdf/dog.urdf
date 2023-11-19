@@ -1,0 +1,446 @@
+<?xml version ="1.0"?>
+<robot name = "my_bot">
+
+<!-- /    COLOR    / -->
+	<material name="Black">
+		<color rgba="0 0 0 1"/>
+	</material>
+	<material name="White">
+		<color rgba="1 1 1 1"/>
+	</material>
+	<material name="Blue">
+		<color rgba="0 0 1 1"/>
+	</material>
+	<material name="Red">
+		<color rgba="1 0 0 1"/>
+	</material>
+
+
+
+<!-- /    BODY    / -->
+    <link name = "body">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size = "0.2 0.15 0.015"/>
+            </geometry>
+            <material name="White"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size = "0.2 0.15 0.015"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="6" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+<!-- /    Left1 Link1 shoulder    / -->
+    <link name = "left1Link1">
+        <visual>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "body_left1Link1" type = "revolute">
+        <parent link = "body"/>
+        <child link = "left1Link1"/>
+        <origin xyz="0.0725 0.0675 0" />
+        <axis xyz="1 0 0" />
+        <limit effort = "300" lower = "-3.14" upper = "6.24" velocity = "1"/>
+
+        <plugin name="joint_controller" filename="libjoint_controller.so">
+            <ros_control_type>controller_type</ros_control_type>
+            <joint_name>joint_name</joint_name>
+        </plugin>
+    </joint>
+
+<!-- /    Left1 Link2     / -->
+    <link name = "left1Link2">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="White"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.06 0" />
+            <mass value="2" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "left1Link1_left1Link2" type = "revolute">
+        <parent link = "left1Link1"/>
+        <child link = "left1Link2"/>
+        <origin xyz="0 0 0.025" />
+        <axis xyz="0 0 1" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "1"/>
+    </joint>
+
+<!-- /    Left1 Link3    / --> 
+    <link name = "left1Link3">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.06 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "left1Link2_left1Link3" type = "revolute">
+        <parent link = "left1Link2"/>
+        <child link = "left1Link3"/>
+        <origin xyz="0 0.12 0" />
+        <axis xyz="-0.707 0 0.707" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "0.005"/>
+    </joint>
+
+<!-- /    Left leg2    / -->
+<!-- /    Left2 Link1  shoulder  / -->
+    <link name = "left2Link1">
+        <visual>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "body_left2Link1" type = "revolute">
+        <parent link = "body"/>
+        <child link = "left2Link1"/>
+        <origin xyz="-0.0725 0.0675 0" />
+        <axis xyz="1 0 0" />
+        <limit effort = "300" lower = "-3.14" upper = "6.24" velocity = "1"/>
+    </joint>
+    
+
+
+    <!-- /    Left2 Link2     / -->
+    <link name = "left2Link2">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="White"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.06 0" />
+            <mass value="2" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "left2Link1_left2Link2" type = "revolute">
+        <parent link = "left2Link1"/>
+        <child link = "left2Link2"/>
+        <origin xyz="0 0 0.025" />
+        <axis xyz="0 0 1" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "1"/>
+    </joint>
+
+<!-- /    Left2 Link3    / --> 
+    <link name = "left2Link3">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0.06 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "left2Link2_left2Link3" type = "revolute">
+        <parent link = "left2Link2"/>
+        <child link = "left2Link3"/>
+        <origin xyz="0 0.12 0" />
+        <axis xyz="-0.707 0 0.707" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "0.005"/>
+    </joint>
+
+
+
+<!-- /    Right leg1    / -->
+<!-- /    Right1 Link1  shoulder  / -->
+    <link name = "right1Link1">
+        <visual>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "body_right1Link1" type = "revolute">
+        <parent link = "body"/>
+        <child link = "right1Link1"/>
+        <origin xyz="0.0725 -0.0675 0" />
+        <axis xyz="-1 0 0" />
+        <limit effort = "300" lower = "-3.14" upper = "6.24" velocity = "1"/>
+    </joint>
+
+    <!-- /    Right1 Link2     / -->
+    <link name = "right1Link2">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="White"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 -0.06 0" />
+            <mass value="2" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "right1Link1_right1Link2" type = "revolute">
+        <parent link = "right1Link1"/>
+        <child link = "right1Link2"/>
+        <origin xyz="0 0 0.025" />
+        <axis xyz="0 0 -1" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "1"/>
+    </joint>
+
+    <!-- /    Right1 Link3    / --> 
+    <link name = "right1Link3">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 -0.06 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "right1Link2_right1Link3" type = "revolute">
+        <parent link = "right1Link2"/>
+        <child link = "right1Link3"/>
+        <origin xyz="0 -0.12 0" />
+        <axis xyz="0.707 0 -0.707" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "0.005"/>
+    </joint>
+
+
+<!-- /    Right leg2    / -->
+<!-- /    Right2 Link1  shoulder  / -->
+    <link name = "right2Link1">
+        <visual>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 1.57 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.012"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "body_right2Link1" type = "revolute">
+        <parent link = "body"/>
+        <child link = "right2Link1"/>
+        <origin xyz="-0.0725 -0.0675 0" />
+        <axis xyz="-1 0 0" />
+        <limit effort = "300" lower = "-3.14" upper = "6.24" velocity = "1"/>
+    </joint>
+
+    <!-- /    Right2 Link2     / -->
+    <link name = "right2Link2">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="White"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 -0.06 0" />
+            <mass value="2" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "right2Link1_right2Link2" type = "revolute">
+        <parent link = "right2Link1"/>
+        <child link = "right2Link2"/>
+        <origin xyz="0 0 0.025" />
+        <axis xyz="0 0 -1" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "1"/>
+    </joint>
+
+    <!-- /    Right2 Link3    / --> 
+    <link name = "right2Link3">
+        <visual>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+            <material name="Blue"/>
+        </visual>
+
+        <collision>
+            <origin rpy="1.57 0 0" xyz="0 -0.06 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.005"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 -0.06 0" />
+            <mass value="1" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+    </link>
+
+    <joint name = "right2Link2_right2Link3" type = "revolute">
+        <parent link = "right2Link2"/>
+        <child link = "right2Link3"/>
+        <origin xyz="0 -0.12 0" />
+        <axis xyz="0.707 0 -0.707" />
+        <limit effort = "300" lower = "-1.57" upper = "1.57" velocity = "0.005"/>
+    </joint>
+
+
+    <!-- sate publisher -->
+    <robot_state_publisher />
+
+    
+</robot>
