@@ -1,5 +1,5 @@
 # ros_final_project  
-*This is the personal final project of ROS course in SUSTech 2024 Spring.*
+*This is the personal final project of ROS course in SUSTech 2023 Autumn.*
 
 *ATTENTION PLEASE*
 - The materials in this repository are intended for educational purposes, including reference and learning. They should not be used for any form of academic dishonesty or plagiarism.
