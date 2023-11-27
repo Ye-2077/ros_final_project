@@ -153,7 +153,7 @@
             <parent link="${leg_name}_calf_link" />
             <child link="${leg_name}_thigh_link" />
             <axis xyz="0 0 1" />
-            <limit effort="300.0" lower="-${M_PI}" upper="${M_PI}" velocity="1" />
+            <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
             <dynamics damping="0" friction="0.1" />
         </joint>
 
@@ -220,8 +220,35 @@
     <!-- ros_control plugin -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/arm</robotNamespace>
+            <robotNamespace>/dog</robotNamespace>
         </plugin>
     </gazebo>
+
+    <!-- Transmissions for ROS Control -->
+    <xacro:macro name="transmission_block" params="joint_name">
+        <transmission name="tran1">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor1">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:transmission_block joint_name="left_forward_leg_body_joint"/>
+    <xacro:transmission_block joint_name="left_forward_leg_keen_joint"/>
+    
+    <xacro:transmission_block joint_name="left_back_leg_body_joint"/>
+    <xacro:transmission_block joint_name="left_back_leg_keen_joint"/>
+
+    <xacro:transmission_block joint_name="right_forward_leg_body_joint"/>
+    <xacro:transmission_block joint_name="right_forward_leg_keen_joint"/>
+
+    <xacro:transmission_block joint_name="right_back_leg_body_joint"/>
+    <xacro:transmission_block joint_name="right_back_leg_keen_joint"/>
+
 
 </robot>
