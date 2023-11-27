@@ -3,6 +3,7 @@
     <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/dog/xacro/dog.xacro" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+    <include file="$(find ros_dog)/launch/dog_simple_control.launch" />
 
     <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model dog -param robot_description" />
 </launch>

@@ -1,0 +1,43 @@
+dog:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+  # Position Controllers ---------------------------------------
+  # LF_leg
+  LF1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: left_forward_leg_body_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: left_forward_leg_keen_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  # LB_leg
+  LB1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: left_back_leg_body_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LB2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: left_back_leg_keen_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  # RF_leg
+  RF1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: right_forward_leg_body_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: right_forward_leg_keen_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  # RB_leg
+  RB1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: right_back_leg_body_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RB2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: right_back_leg_keen_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}

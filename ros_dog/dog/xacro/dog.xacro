@@ -175,7 +175,7 @@
 
     <!-- base_body_joint -->
     <joint name="base_body_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="3.14 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!--up and down: rpy="3.14 0 0"-->
         <parent link="base_link" />
         <child link="body_link" />
     </joint>
@@ -226,12 +226,12 @@
 
     <!-- Transmissions for ROS Control -->
     <xacro:macro name="transmission_block" params="joint_name">
-        <transmission name="tran1">
+        <transmission name="tran_${joint_name}">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${joint_name}">
                 <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             </joint>
-            <actuator name="motor1">
+            <actuator name="motor_${joint_name}">
                 <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
