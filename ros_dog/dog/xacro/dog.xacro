@@ -43,7 +43,7 @@
     <xacro:property name="shoulder_len" value="0.05" />
 
     <!-- point_feet properties -->
-    <xacro:property name="point_feet_radius" value="0.017675" /> 
+    <xacro:property name="point_feet_radius" value="0.017675" />
 
     <!-- Gripper frame -->
     <xacro:property name="grasp_frame_radius" value="0.001" />
@@ -52,26 +52,26 @@
     <xacro:macro name="inertial_matrix" params="mass">
         <inertial>
             <mass value="${mass}" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <inertia ixx="0.166667" ixy="0" ixz="0" iyy="0.166667" iyz="0" izz="0.166667"/>
         </inertial>
     </xacro:macro>
 
     <!-- base_link -->
-    <!-- <link name="base_link">
+    <link name="base_link">
         <visual>
-            <origin xyz="0 0 ${body_h}" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <box size="${body_link_length/10} ${body_link_width/10} ${body_link_height/10}" />
             </geometry>
             <material name="White" />
         </visual>
-        <collision>
+        <!-- <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <box size="${body_link_length/10} ${body_link_width/10} ${body_link_height/10}" />
             </geometry>
-        </collision>
-    </link> -->
+        </collision> -->
+    </link>
 
     <!-- body_link -->
     <link name="body_link">
@@ -88,7 +88,7 @@
                 <box size="${body_link_length} ${body_link_width} ${body_link_height}" />
             </geometry>
         </collision>
-        <xacro:inertial_matrix mass="10.0" />
+        <xacro:inertial_matrix mass="5" />
     </link>
 
     <!-- leg -->
@@ -102,12 +102,12 @@
                 <material name="White" />
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
                 <geometry>
                     <box size="${calf_width} ${calf_len} ${calf_height}" />
                 </geometry>
             </collision>
-            <xacro:inertial_matrix mass="10.0" />
+            <xacro:inertial_matrix mass="0.5" />
         </link>
 
         <link name="${leg_name}_thigh_link">
@@ -119,12 +119,12 @@
                 <material name="Blue" />
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
                 <geometry>
                     <box size="${thigh_width} ${thigh_len} ${thigh_height}" />
                 </geometry>
             </collision>
-            <xacro:inertial_matrix mass="10.0" />
+            <xacro:inertial_matrix mass="0.5" />
         </link>
 
         <link name="${leg_name}_feet_link">
@@ -136,12 +136,16 @@
                 <material name="Black" />
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="0 0 0" />
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
                 <geometry>
                     <sphere radius="${point_feet_radius}" />
                 </geometry>
             </collision>
-            <xacro:inertial_matrix mass="10.0" />
+            <inertial>
+                <mass value="0.1"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+            </inertial>
         </link>
 
         <joint name="${leg_name}_keen_joint" type="revolute">
@@ -150,7 +154,7 @@
             <child link="${leg_name}_thigh_link" />
             <axis xyz="0 0 1" />
             <limit effort="300.0" lower="-${M_PI}" upper="${M_PI}" velocity="1" />
-            <dynamics damping="0" friction="0.5" />
+            <dynamics damping="0" friction="0.1" />
         </joint>
 
         <joint name="${leg_name}_feet_joint" type="fixed">
@@ -158,8 +162,8 @@
             <parent link="${leg_name}_thigh_link" />
             <child link="${leg_name}_feet_link" />
             <axis xyz="0 0 1" />
-            <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
-            <dynamics damping="50" friction="1" />
+            <!-- <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" /> -->
+            <!-- <dynamics damping="0" friction="0.1" /> -->
         </joint>
     </xacro:macro>
 
@@ -169,12 +173,12 @@
     <xacro:leg leg_name="right_forward_leg" />
     <xacro:leg leg_name="right_back_leg" />
 
-    <!-- base_body_joint
+    <!-- base_body_joint -->
     <joint name="base_body_joint" type="fixed">
-        <origin xyz="0 0 ${body_h}" rpy="3.14 0 0" />
+        <origin xyz="0 0 0" rpy="3.14 0 0" />
         <parent link="base_link" />
         <child link="body_link" />
-    </joint> -->
+    </joint>
 
     <!-- leg_body_joint -->
     <joint name="left_forward_leg_body_joint" type="revolute">
@@ -183,7 +187,7 @@
         <child link="left_forward_leg_calf_link" />
         <axis xyz="0 0 1" />
         <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
-        <dynamics damping="0" friction="0.5" />
+        <dynamics damping="0" friction="0.1" />
     </joint>
 
     <joint name="left_back_leg_body_joint" type="revolute">
@@ -192,7 +196,7 @@
         <child link="left_back_leg_calf_link" />
         <axis xyz="0 0 1" />
         <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
-        <dynamics damping="0" friction="0.5" />
+        <dynamics damping="0" friction="0.1" />
     </joint>
 
     <joint name="right_forward_leg_body_joint" type="revolute">
@@ -201,16 +205,16 @@
         <child link="right_forward_leg_calf_link" />
         <axis xyz="0 0 1" />
         <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
-        <dynamics damping="0" friction="0.5" />
+        <dynamics damping="0" friction="0.1" />
     </joint>
 
     <joint name="right_back_leg_body_joint" type="revolute">
-        <origin xyz="-${body_link_length/2} -${body_link_width/2+calf_height/2} 0" rpy="1.57 0 0" />
+        <origin xyz="-${body_link_length/2} -${body_link_width/2+calf_height/2} 0" rpy="1.57 0.785 0" />
         <parent link="body_link" />
         <child link="right_back_leg_calf_link" />
         <axis xyz="0 0 1" />
-        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="0.00005" />
-        <dynamics damping="0" friction="0.5" />
+        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+        <dynamics damping="0" friction="0.1" />
     </joint>
 
     <!-- ros_control plugin -->
