@@ -98,8 +98,15 @@ class ArmCommand(object):
         self.msg.finger_joint1 = finger_joint1
         self.msg.finger_joint2 = finger_joint2
 
-        # rospy.loginfo(type(self.msg))
-        # response = self.arm_mover(self.msg)
+        # rospy.loginfo(self.msg.joint1)
+        response = self.arm_mover(self.msg.joint1,
+                                  self.msg.joint2,
+                                  self.msg.joint3,
+                                  self.msg.joint4,
+                                  self.msg.joint5,
+                                  self.msg.joint6,
+                                  self.msg.finger_joint1,
+                                  self.msg.finger_joint2)
         print(type(self.msg.joint1))
 
         if pos_init:
