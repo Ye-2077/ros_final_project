@@ -153,7 +153,7 @@
             <parent link="${leg_name}_calf_link" />
             <child link="${leg_name}_thigh_link" />
             <axis xyz="0 0 1" />
-            <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+            <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" />
             <dynamics damping="0" friction="0.1" />
         </joint>
 
@@ -162,7 +162,7 @@
             <parent link="${leg_name}_thigh_link" />
             <child link="${leg_name}_feet_link" />
             <axis xyz="0 0 1" />
-            <!-- <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" /> -->
+            <!-- <limit effort="300.0" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" /> -->
             <!-- <dynamics damping="0" friction="0.1" /> -->
         </joint>
     </xacro:macro>
@@ -175,7 +175,8 @@
 
     <!-- base_body_joint -->
     <joint name="base_body_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" /> <!--up and down: rpy="3.14 0 0"-->
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <!--up: rpy="3.14 0 0" down: rpy="0 0 0"-->
         <parent link="base_link" />
         <child link="body_link" />
     </joint>
@@ -186,7 +187,7 @@
         <parent link="body_link" />
         <child link="left_forward_leg_calf_link" />
         <axis xyz="0 0 1" />
-        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" />
         <dynamics damping="0" friction="0.1" />
     </joint>
 
@@ -195,7 +196,7 @@
         <parent link="body_link" />
         <child link="left_back_leg_calf_link" />
         <axis xyz="0 0 1" />
-        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" />
         <dynamics damping="0" friction="0.1" />
     </joint>
 
@@ -204,7 +205,7 @@
         <parent link="body_link" />
         <child link="right_forward_leg_calf_link" />
         <axis xyz="0 0 1" />
-        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" />
         <dynamics damping="0" friction="0.1" />
     </joint>
 
@@ -213,7 +214,7 @@
         <parent link="body_link" />
         <child link="right_back_leg_calf_link" />
         <axis xyz="0 0 1" />
-        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="1" />
+        <limit effort="300" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="10" />
         <dynamics damping="0" friction="0.1" />
     </joint>
 
@@ -240,7 +241,7 @@
 
     <xacro:transmission_block joint_name="left_forward_leg_body_joint"/>
     <xacro:transmission_block joint_name="left_forward_leg_keen_joint"/>
-    
+
     <xacro:transmission_block joint_name="left_back_leg_body_joint"/>
     <xacro:transmission_block joint_name="left_back_leg_keen_joint"/>
 

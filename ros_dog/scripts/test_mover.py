@@ -24,6 +24,7 @@ def mover():
     while not rospy.is_shutdown():
         elapsed = rospy.Time.now().to_sec() - start_time
         pub_j1.publish(0)
+        # pub_j2.publish(0)
         pub_j2.publish(math.sin(2*math.pi*0.1*elapsed)*(math.pi/2))
         pub_j3.publish(0)
         pub_j4.publish(0)

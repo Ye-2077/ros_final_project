@@ -26,11 +26,18 @@ def move_arm(pos_joints):
     '''
 
     time_elapsed = rospy.Time.now()
+    
 
     for i in range(len(pos_joints)):
         globals()['pub_j'+str(i+1)].publish(pos_joints[i])
 
     while True:
+        current_time = rospy.Time.now()
+        elapsed_time = current_time - time_elapsed
+        if elapsed_time.to_sec() > 1:
+            rospy.logwarn("Timeout occurred!")
+            break
+
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
         result = True
 

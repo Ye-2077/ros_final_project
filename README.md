@@ -105,3 +105,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 you can also open another terminal and run `rqt_image_view /rgb_camera/image_raw`  
 you can compare these two graphs and find the differences
+
+
+remember to offer 
+ by `sudo chmod 777`
