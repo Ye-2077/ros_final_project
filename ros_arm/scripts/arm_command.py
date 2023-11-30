@@ -107,7 +107,6 @@ class ArmCommand(object):
                                   self.msg.joint6,
                                   self.msg.finger_joint1,
                                   self.msg.finger_joint2)
-        print(type(self.msg.joint1))
 
         if pos_init:
             rospy.loginfo('init all joints position')
@@ -298,8 +297,7 @@ class ArmCommand(object):
                     self.r.sleep()
 
                     # arm turn to predetermined position
-                    self.arm_pos_set(
-                        joint1=1.0, left_joint=0.15, right_joint=0.15)
+                    self.arm_pos_set(joint1=1.0, left_joint=0.15, right_joint=0.15)
                     self.r.sleep()
 
                     self.arm_pos_set(joint1=1.0, joint2=0.2, joint3=-1.0, joint4=0.8,

@@ -1,6 +1,6 @@
 <launch>
     <!-- <param name="robot_description" textfile="$(find ros_dog)/dog/a1/urdf/a1.urdf" /> -->
-    <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/dog/xacro/dog.xacro" />
+    <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/dog/xacro/dog_v2.xacro" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch" />
     <include file="$(find ros_dog)/launch/dog_simple_control.launch" />
