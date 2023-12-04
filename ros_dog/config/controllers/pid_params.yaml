@@ -5,11 +5,19 @@ dog:
         p: 1.0
         i: 0.1
         d: 0.05
+      right_forward_leg_shoulder_joint:
+        p: 1.0
+        i: 0.1
+        d: 0.05
       right_forward_leg_keen_joint:
         p: 1.0
         i: 0.1
         d: 0.05
       right_back_leg_body_joint:
+        p: 1.0
+        i: 0.1
+        d: 0.05
+      right_back_leg_shoulder_joint:
         p: 1.0
         i: 0.1
         d: 0.05
@@ -21,11 +29,19 @@ dog:
         p: 1.0
         i: 0.1
         d: 0.05
+      left_forward_leg_shoulder_joint:
+        p: 1.0
+        i: 0.1
+        d: 0.05
       left_forward_leg_keen_joint:
         p: 1.0
         i: 0.1
         d: 0.05
       left_back_leg_body_joint:
+        p: 1.0
+        i: 0.1
+        d: 0.05
+      left_back_leg_shoulder_joint:
         p: 1.0
         i: 0.1
         d: 0.05

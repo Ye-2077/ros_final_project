@@ -12,8 +12,13 @@ dog:
     pid: {p: 100.0, i: 0.01, d: 10.0}
   LF2_position_controller:
     type: position_controllers/JointPositionController
+    joint: left_forward_leg_shoulder_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF3_position_controller:
+    type: position_controllers/JointPositionController
     joint: left_forward_leg_keen_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
+
   # LB_leg
   LB1_position_controller:
     type: position_controllers/JointPositionController
@@ -21,8 +26,13 @@ dog:
     pid: {p: 100.0, i: 0.01, d: 10.0}
   LB2_position_controller:
     type: position_controllers/JointPositionController
+    joint: left_back_leg_shoulder_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LB3_position_controller:
+    type: position_controllers/JointPositionController
     joint: left_back_leg_keen_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
+
   # RF_leg
   RF1_position_controller:
     type: position_controllers/JointPositionController
@@ -30,14 +40,23 @@ dog:
     pid: {p: 100.0, i: 0.01, d: 10.0}
   RF2_position_controller:
     type: position_controllers/JointPositionController
+    joint: right_forward_leg_shoulder_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF3_position_controller:
+    type: position_controllers/JointPositionController
     joint: right_forward_leg_keen_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
+
   # RB_leg
   RB1_position_controller:
     type: position_controllers/JointPositionController
     joint: right_back_leg_body_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
   RB2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: right_back_leg_shoulder_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RB3_position_controller:
     type: position_controllers/JointPositionController
     joint: right_back_leg_keen_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
