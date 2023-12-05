@@ -8,7 +8,35 @@
 
 ---
 
-## Moveit
+## Workspace and Instrcution
+
+**1. Create your workspace**
+  
+```
+$ cd [your workspace path]
+$ mkdir -p ~/[your workspace name]/src
+```
+
+**2. Clone this reprosity**
+You can put this reprosity in workspace/src path
+  
+```
+$ cd ~/[your workspace name]/src
+$ git clone
+```
+
+**3. Build workspace**
+
+Here we advice you to use `catkin build` instead of `catkin_make`  
+```
+$ cd ~/[your workspace name]  
+$ catkin build
+```
+
+
+---
+
+## Install Moveit!
 
 **1. Install Moveit**
 
@@ -52,7 +80,7 @@ Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit
 
 ---
 
-## Prepare the Camera
+## Prepare for the Camera
 *this enable you to use your laptap's camera*
 
 - install camera-driver
@@ -66,7 +94,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 
 ---
 
-## How To Use
+## How To Use Arm
 
 **1. Joint control & Mover**  
 

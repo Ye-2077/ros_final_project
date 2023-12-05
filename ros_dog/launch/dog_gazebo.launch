@@ -1,6 +1,11 @@
+<!-- launch the xacro or urdf in gazebo -->
+<!-- collect and launch all sub-launch file in here -->
+
+<?xml version="1.0"?>
+
 <launch>
-    <!-- <param name="robot_description" textfile="$(find ros_dog)/dog/a1/urdf/a1.urdf" /> -->
     <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/dog/xacro/dog_v4.xacro" />
+    <!-- <param name="robot_description" textfile="$(find ros_dog)/dog/a1/urdf/a1.urdf" /> -->
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch" />
     <include file="$(find ros_dog)/launch/dog_simple_control.launch" />
