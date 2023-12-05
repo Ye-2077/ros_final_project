@@ -1,0 +1,35 @@
+反馈控制是指，从图像获得位置误差，根据误差来移动一定程度的位置。然后再利用图像获得目标位置，依次循环，直到达到可接受的误差。  
+假设上图是我们从摄像头获得的图像，我们从img_process获得了目标的中点（midpoint），我们需要将目标移动到视觉的中心，所以从图中的出了x和y方向上的误差。  
+若目标靠近，则图像范围会变大，所以图像范围就可以作为一个新的条件来控制jonit3.  
+ 和之前一样，我们需要保证link4节点平行于地面，其原因主要是为了方便于图像处理。   一个非常重要的一点是，这个时候的误差是基于像素的，无法直接作用于角度，所以就需要一个转换，从像素误差到夹爪角度。我在程序中只是简单的提取了它的符号，使每次循环的只在相应的符号上移动一个单位，这样就导致了移动比较缓慢。这里还可以采用PID控制，相信会有一个比价好的效果。   以下是相应的功能在程序中的实现  
+    # get the error direction
+    def img_data_to_error(self, midpoint, image_range, z_range_parameter=340):
+        # get error in x,y direction
+        camera_midpoint = [320, 290]
+        delta_x = camera_midpoint[0] - midpoint.data[0]
+        delta_y = camera_midpoint[1] - midpoint.data[1]
+        print(midpoint.data)
+
+        # get error in z direction
+        z_x = image_range.data[2] - image_range.data[0]
+        z_y = image_range.data[3] - image_range.data[1]
+        object_range = math.sqrt(z_x * z_x + z_y * z_y)
+        delta_z = z_range_parameter - object_range
+
+        if not self.z_at_goal:
+            self.x_at_goal = self.at_goal(midpoint.data[0], camera_midpoint[0])
+            self.y_at_goal = self.at_goal(midpoint.data[1], camera_midpoint[1])
+            self.z_at_goal = self.at_goal(object_range, z_range_parameter, error_parameter=30)
+
+        if self.z_at_goal:
+            self.x_at_goal = self.at_goal(midpoint.data[0], camera_midpoint[0], error_parameter=50)
+            self.y_at_goal = self.at_goal(midpoint.data[1], camera_midpoint[1], error_parameter=50)
+            self.z_at_goal = self.at_goal(object_range, z_range_parameter, error_parameter=30)
+
+        print(delta_x, delta_y, delta_z)
+
+        # get the sign in all direction
+        x_sign = self.sign_output(self.x_at_goal, delta_x)
+        y_sign = self.sign_output(self.y_at_goal, delta_y)
+        z_sign = self.sign_output(self.z_at_goal, delta_z)
+        return -x_sign, y_sign, z_sign
