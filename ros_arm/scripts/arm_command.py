@@ -166,6 +166,18 @@ class ArmCommand(object):
     def get_joint_value(self):
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
 
+        j = JointState
+        j.header.stamp
+        # visualize stamp
+        print("stamp is: {}".format(joint_state.header.stamp))
+
+        # solution
+        # add an arg get_joint_val(self, time_stamp)
+        # if time stamp not match
+        # return
+        # or you can directly find the message with the stamp you want.
+
+
         # get joints' real value
         joint1 = joint_state.position[2]
         joint2 = joint_state.position[3]
