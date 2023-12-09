@@ -8,7 +8,7 @@ from std_msgs.msg import Float64, Bool, Float64MultiArray
 from sensor_msgs.msg import JointState
 from scipy.optimize import fsolve
 from sensor_msgs.msg import JointState
-from ros_arm.srv import GoalPosition, GoalPositionResponse, GoalPositionRequest
+from ros_arm.srv import GoalPosition, GoalPositionRequest
 
 
 class ArmCommand(object):
@@ -16,19 +16,23 @@ class ArmCommand(object):
         # init symbols of completion of the moving loop
         self.dis_y = 0.0
         self.dis_z = 0.0
-        self.joint1_g = 0.0
+
         self.midpoint = 0.0
         self.image_range = 0.0
-        self.joint1_data = 0.0
+
         self.x_at_goal = False
         self.y_at_goal = False
         self.z_at_goal = False
+
         self.move_end = False
         self.loop_sign = False
 
+        self.count = 0
+
         # init ros data
-        self.r = rospy.Rate(1)
+        self.r = rospy.Rate(5)
         rospy.set_param('~loop_sign', False)
+
         self.start_time = rospy.Time.now().to_sec()
         self.run_sign = False
 
@@ -40,10 +44,8 @@ class ArmCommand(object):
             self.arm_pos_set(pos_init=True)
 
         # init Publisher
-        self.pub1 = rospy.Publisher(
-            '/arm_command/loop_sign', Bool, queue_size=10)
-        self.pub2 = rospy.Publisher(
-            '/arm_command/program_run', Bool, queue_size=10)
+        self.pub1 = rospy.Publisher('/arm_command/loop_sign', Bool, queue_size=10)
+        self.pub2 = rospy.Publisher('/arm_command/program_run', Bool, queue_size=10)
 
         # init Subscriber
         rospy.Subscriber('/rgb_camera/image_processed/point_exist', Bool, self.callback)
@@ -52,65 +54,61 @@ class ArmCommand(object):
 
     # translate joints' values between calculated value and true value
     def value_translation(self, joint_value, joint_name, joint_type):
-        if joint_type == 'cal2gaz':
-            if joint_name == 'joint2':
-                value = joint_value
-            if joint_name == 'joint3':
-                value = joint_value
-            if joint_name == 'joint4':
-                value = joint_value
-            if joint_name == 'joint5':
-                value = joint_value
-            if joint_name == 'joint6':
-                value = joint_value
+        # if joint_type == 'cal2gaz':
+        #     if joint_name == 'joint2':
+        #         value = joint_value
+        #     if joint_name == 'joint3':
+        #         value = joint_value
+        #     if joint_name == 'joint4':
+        #         value = joint_value
+        #     if joint_name == 'joint5':
+        #         value = joint_value
+        #     if joint_name == 'joint6':
+        #         value = joint_value
 
         if joint_type == 'gaz2cal':
             if joint_name == 'joint2':
-                value = joint_value
+                value = joint_value + math.pi/4
             if joint_name == 'joint3':
-                value = joint_value
-            if joint_name == 'joint4':
-                value = joint_value
-            if joint_name == 'joint5':
-                value = joint_value
-            if joint_name == 'joint6':
-                value = joint_value
+                value = joint_value + math.pi/2
         return value
     # set all positions of joints with this function
 
     def arm_pos_set(self,
-                    joint1=0.0,
+                    joint1=1.0,
                     joint2=math.pi/4,
                     joint3=math.pi/2,
                     joint4=0.0,
-                    joint5=-math.pi/4,
+                    joint5=math.pi/4,
                     joint6=0.0,
                     finger_joint1=0.0,
                     finger_joint2=0.0,
                     pos_init=False):
 
+        print(joint1)
         self.msg.joint1 = joint1
-        self.msg.joint2 = self.value_translation(joint2, 'joint2', 'cal2gaz')
-        self.msg.joint3 = self.value_translation(joint3, 'joint3', 'cal2gaz')
-        self.msg.joint4 = self.value_translation(joint4, 'joint4', 'cal2gaz')
-        self.msg.joint5 = self.value_translation(joint5, 'joint5', 'cal2gaz')
-        self.msg.joint6 = self.value_translation(joint6, 'joint5', 'cal2gaz')
+        print(joint1)
+        self.msg.joint2 = joint2
+        self.msg.joint3 = joint3
+        self.msg.joint4 = joint4
+        self.msg.joint5 = joint5
+        self.msg.joint6 = joint6
         self.msg.finger_joint1 = finger_joint1
         self.msg.finger_joint2 = finger_joint2
+        
 
-        # rospy.loginfo(self.msg.joint1)
         response = self.arm_mover(self.msg.joint1,
-                                  self.msg.joint2,
-                                  self.msg.joint3,
-                                  self.msg.joint4,
-                                  self.msg.joint5,
-                                  self.msg.joint6,
-                                  self.msg.finger_joint1,
-                                  self.msg.finger_joint2)
+                        self.msg.joint2,
+                        self.msg.joint3,
+                        self.msg.joint4,
+                        self.msg.joint5,
+                        self.msg.joint6,
+                        self.msg.finger_joint1,
+                        self.msg.finger_joint2)
 
         if pos_init:
             rospy.loginfo('init all joints position')
-
+            pos_init = True
 
 
 
@@ -145,6 +143,7 @@ class ArmCommand(object):
         z_y = image_range.data[3] - image_range.data[1]
         object_range = math.sqrt(z_x * z_x + z_y * z_y)
         delta_z = z_range_parameter - object_range
+        print(delta_x, delta_y, delta_z)
 
         if not self.z_at_goal:
             self.x_at_goal = self.at_goal(midpoint.data[0], camera_midpoint[0])
@@ -164,37 +163,24 @@ class ArmCommand(object):
         z_sign = self.sign_output(self.z_at_goal, delta_z)
         return -x_sign, y_sign, z_sign
 
-    def joint_angle_limit(self, joint_value, joint_name):
-        joint_limit = False
-        if joint_name == 'joint2': limit = [-3.14, 3.14]
-        elif joint_name == 'joint3': limit = [-3.14, 3.14]
-        elif joint_name == 'joint4': limit = [-3.14, 3.14]
-        elif joint_name == 'joint5': limit = [-3.14, 3.14]
-        elif joint_name == 'joint6': limit = [-3.14, 3.14]
-
-        if not limit[0] <= joint_value <= limit[1]:
-            joint_value = min(max(limit[0], joint_value), limit[1])
-            joint_limit = True
-
-        return joint_value, joint_limit
-
     def get_joint_value(self):
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
 
         # get joints' real value
-        joint1 = joint_state.position[0]
-        joint2 = joint_state.position[1]
-        joint3 = joint_state.position[2]
-        joint4 = joint_state.position[3]
-        joint5 = joint_state.position[4]
-        joint6 = joint_state.position[5]
+        joint1 = joint_state.position[2]
+        joint2 = joint_state.position[3]
+        joint3 = joint_state.position[4]
+        joint4 = joint_state.position[5]
+        joint5 = joint_state.position[6]
+        joint6 = joint_state.position[7]
 
-        # translate joints' value
+        # # translate joints' value
+        
         joint2 = self.value_translation(joint2, 'joint2', 'gaz2cal')
         joint3 = self.value_translation(joint3, 'joint3', 'gaz2cal')
-        joint4 = self.value_translation(joint4, 'joint4', 'gaz2cal')
-        joint5 = self.value_translation(joint5, 'joint5', 'gaz2cal')
-        joint6 = self.value_translation(joint6, 'joint6', 'gaz2cal')
+        joint4 = joint4
+        joint5 = joint5
+        joint6 = joint6
 
         return joint1, joint2, joint3, joint4, joint5, joint6
 
@@ -202,45 +188,33 @@ class ArmCommand(object):
     def arm_controller(self, x_direction_sign, y_direction_sign, z_direction_sign, effect=0.01):
 
         joint1, joint2, joint3, joint4, joint5, joint6 = self.get_joint_value()
-        joint1 = self.joint1_data
-        rospy.loginfo('\nGet: \n joint1: %s,\n joint2: %s,\n joint3: %s,\n joint4: %s,\n joint5: %s,\n joint6: %s',
-                      joint1, joint2, joint3, joint4, joint5, joint6)
-
+        # rospy.loginfo('\nGet: \n joint1: %s,\n joint2: %s,\n joint3: %s,\n joint4: %s,\n joint5: %s,\n joint6: %s',
+        #               joint1, joint2, joint3, joint4, joint5, joint6)
+        
         # calculate the next joint value
-        joint1_cal = joint1 + effect * x_direction_sign
-        joint2_cal = joint2 + effect * y_direction_sign
-        joint3_cal = joint3 + effect * 5 * z_direction_sign
-        joint4_cal = abs(joint3) - abs(joint2) - 0.15
-        joint5_cal = joint5
+        elapsed = rospy.Time.now().to_sec() - self.start_time
+        joint1_cal = math.sin(2 * math.pi * 0.05 * elapsed) * (math.pi / 2)
+        # joint1_cal = self.count
+        print('joint1_cal: ',joint1_cal)
+    
+        print('stuck here')
+        joint2_cal = joint2 + effect * y_direction_sign *y_direction_sign
+        joint3_cal = joint3 + effect * z_direction_sign *z_direction_sign
+        joint4_cal = joint4
+        joint5_cal = abs(joint2_cal) + abs(joint3_cal) - math.pi/2
         joint6_cal = joint6
-        rospy.loginfo('\nCal: \n joint1: %s,\n joint2: %s,\n joint3: %s,\n joint4: %s,\n joint5: %s,\n joint6: %s',
-                      joint1_cal, joint2_cal, joint3_cal, joint4_cal, joint5_cal, joint6_cal)
+        # rospy.loginfo('\nCal: \n joint1: %s,\n joint2: %s,\n joint3: %s,\n joint4: %s,\n joint5: %s,\n joint6: %s',
+        #               joint1_cal, joint2_cal, joint3_cal, joint4_cal, joint5_cal, joint6_cal)
 
+        self.arm_pos_set(joint1=joint1_cal, joint2=joint2_cal, joint3=joint3_cal,
+                         joint4=joint4_cal, joint5=joint5_cal, joint6=joint6_cal)
+        
+        joint1, joint2, joint3, joint4, joint5, joint6 = self.get_joint_value()
+        
+        print('joint1: ',joint1)
+    
+        rospy.loginfo('moved')    
 
-        # limit joints' value
-        joint2_cal, joint2_limit = self.joint_angle_limit(joint2_cal, 'joint2')
-        joint3_cal, joint3_limit = self.joint_angle_limit(joint3_cal, 'joint3')
-        joint4_cal, joint4_limit = self.joint_angle_limit(joint4_cal, 'joint4')
-        joint5_cal, joint5_limit = self.joint_angle_limit(joint5_cal, 'joint3')
-        joint6_cal, joint6_limit = self.joint_angle_limit(joint6_cal, 'joint4')
-
-        # rospy.loginfo('limit:joint1:%s, joint2:%s, joint3:%s, joint4:%s', joint1, joint2, joint3, joint4)
-        limit = joint2_limit and joint3_limit and joint4_limit and joint5_limit and joint6_limit
-        if limit:
-            rospy.logwarn('target is out of the range!')
-
-        # set joints' value, at begin just set values of joint1 and joint2
-        if not (self.x_at_goal and self.y_at_goal):
-            self.arm_pos_set(joint1=joint1_cal, joint2=joint2_cal, joint3=joint3,
-                             joint4=joint4_cal, joint5=joint5_cal, joint6=joint6_cal)
-        else:
-            self.arm_pos_set(joint1=joint1_cal, joint2=joint2_cal, joint3=joint3_cal,
-                             joint4=joint4_cal, joint5=joint5_cal, joint6=joint6_cal)
-        print('moved')    
-
-        # while not self.move_end:
-        #     if self.move_end:
-        #         break
         
         return True
 
@@ -253,19 +227,19 @@ class ArmCommand(object):
                 poex = True
                 while not (self.x_at_goal and self.y_at_goal and self.z_at_goal):
                     # get img data
-            
+                    self.count += 1
+                    print(self.count)
                     if not poex:
                         break
-
+                    
                     rospy.set_param('~loop_sign', False)
                     rospy.loginfo('start moving...')
                     self.midpoint = rospy.wait_for_message('/rgb_camera/image_processed/midpoint', Float64MultiArray)
                     self.image_range = rospy.wait_for_message('/rgb_camera/image_processed/image_range', Float64MultiArray)
                     joint_states = rospy.wait_for_message('/arm/joint_states', JointState)
-                    self.joint1_data = joint_states.position[2]
+                    
                     # self.joint1_data = rospy.wait_for_message('/rgb_camera/image_processed/joint1_position', Float64)
                     
-
                     # deal joints information
                     x_sign, y_sign, z_sign = self.img_data_to_error(self.midpoint, self.image_range)
                     rospy.loginfo('x_sign: %s, y_sign: %s, z_sign: %s',x_sign, y_sign, z_sign)
@@ -273,9 +247,12 @@ class ArmCommand(object):
                     #TODO#
                     self.loop_sign = self.arm_controller(x_sign, y_sign, z_sign, effect=0.01)
                     
-
-                    # self.pub1.publish(self.loop_sign)
-                    rospy.set_param('~loop_sign', True)
+                    rospy.set_param('/arm_command/loop_sign', True)
+                    rospy.loginfo('loop_sign: %s', self.loop_sign)
+                    self.pub1.publish(self.loop_sign)
+                    
+    
+                    
                     self.r.sleep()
 
                 self.r.sleep()
@@ -336,8 +313,8 @@ class ArmCommand(object):
 
     def callback(self, exist):
         try:
-            service_available = rospy.wait_for_service('arm_mover/arm_mover', timeout=1)
-            print(f"Service '{'arm_mover/arm_mover'}' is available!")
+            service_available = rospy.wait_for_service('/arm_mover/arm_mover', timeout=5)
+            print(f"Service '{'/arm_mover/arm_mover'}' is available!")
             self.command_callback(exist.data)
 
         except rospy.exceptions.ROSException:

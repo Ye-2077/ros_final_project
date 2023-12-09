@@ -24,7 +24,7 @@
                                           RB3_position_controller"/>
 
     <!-- run node robot_state_publisher，pub tf  -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    <node name="dog_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
           respawn="false" output="screen">
         <remap from="/joint_states" to="/dog/joint_states" />
     </node>

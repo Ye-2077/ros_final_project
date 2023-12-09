@@ -31,20 +31,20 @@ def mover():
     while not rospy.is_shutdown():
         elapsed = rospy.Time.now().to_sec() - start_time
         pub_LF1.publish(0)
-        pub_LF2.publish(math.sin(2*math.pi*0.1*elapsed)*(math.pi/2))
-        pub_LF3.publish(0)
+        pub_LF2.publish(-0.4)
+        pub_LF3.publish(0.8)
         
         pub_LB1.publish(0)
-        pub_LB2.publish(0)
-        pub_LB3.publish(0)
+        pub_LB2.publish(-0.4)
+        pub_LB3.publish(0.8)
 
         pub_RF1.publish(0)
-        pub_RF2.publish(0)
-        pub_RF3.publish(0)
+        pub_RF2.publish(-0.4)
+        pub_RF3.publish(0.8)
         
         pub_RB1.publish(0)
-        pub_RB2.publish(0)
-        pub_RB3.publish(0)
+        pub_RB2.publish(-0.4)
+        pub_RB3.publish(0.8)
     rate.sleep()
 
 

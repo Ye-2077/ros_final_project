@@ -76,9 +76,9 @@ class ImgProcess(object):
             min_point = [length_min, width_min]
             max_point = [length_max, width_max]
         else:
-            midpoint = 0
-            min_point = 0
-            max_point = 0
+            midpoint = [0,0]
+            min_point = [0,0]
+            max_point = [0,0]
 
         res = cv2.bitwise_and(image, image, mask=mask)
         cv2.circle(res, (midpoint[1], midpoint[0]), 5, (0, 0, 255), 2)
@@ -113,6 +113,7 @@ class ImgProcess(object):
             self.pub4.publish(self.image_range)
         else:
             rospy.loginfo('No targets were detected')
+            self.pub2.publish(point_exist)
 
 
 if __name__ == '__main__':

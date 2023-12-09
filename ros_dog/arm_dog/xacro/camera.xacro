@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!-- xacro of camera -->
+
+<robot name="camera" xmlns:xacro="http://wiki.ros.org/xacro">
+    <!-- include files -->
+    <xacro:include filename="utils_inertia.xacro" />
+
+    <!-- properties -->
+    <xacro:property name="camera_length" value="0.001" /> <!-- length(x) -->
+    <xacro:property name="camera_width" value="0.01" /> <!-- width(y) -->
+    <xacro:property name="camera_height" value="0.01" /> <!-- height(z) -->
+    <xacro:property name="camera_x" value="0.0205" /> <!-- connection_pos x -->
+    <xacro:property name="camera_y" value="0.0" /> <!-- connection_pos y -->
+    <xacro:property name="camera_z" value="0.0" /> <!-- connection_pos z -->
+    
+    <xacro:property name="camera_m" value="0.01" /> <!-- mass -->
+
+    <!-- camera link -->
+    <link name="camera">
+        <visual>
+            <geometry>
+                <box size="${camera_length} ${camera_width} ${camera_height}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <material name="black" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${camera_length} ${camera_width} ${camera_height}" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        </collision>
+        <xacro:Box_inertial_matrix m="${camera_m}" l="${camera_length}" w="${camera_width}" h="${camera_height}" />
+    </link>
+
+    <joint name="camera2base_link" type="fixed">
+        <parent link="link6" />
+        <child link="camera" />
+        <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="3.1416 0.0 0.0" />
+    </joint>
+    <gazebo reference="camera">
+        <material>Gazebo/Black</material>
+    </gazebo>
+</robot>

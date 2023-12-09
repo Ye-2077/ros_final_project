@@ -1,6 +1,6 @@
 <launch>
 
-    <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/dog/xacro/dog.xacro" />
+    <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/arm_dog/xacro/dog_v4.xacro" />
     <node pkg="rviz" type="rviz" name="arm_rviz" args ="-d $(find ros_dog)/config/rviz/dog.rviz" />
 
     <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />

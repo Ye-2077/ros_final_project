@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot name="arm_dog" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find ros_dog)/arm_dog/xacro/dog_v4.xacro" />
+    <xacro:include filename="$(find ros_dog)/arm_dog/xacro/arm.xacro" />
+    
+</robot>

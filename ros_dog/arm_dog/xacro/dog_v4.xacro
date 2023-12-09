@@ -1,0 +1,388 @@
+<?xml version="1.0"?>
+<robot name="dog"
+    xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!-- Defining the colors used in this robot -->
+    <material name="Black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <material name="White">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="Blue">
+        <color rgba="0 0 1 1"/>
+    </material>
+
+    <material name="Red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
+    <!-- Constants -->
+    <xacro:property name="M_PI" value="3.14159"/>
+
+    <!-- body_link properties -->
+    <xacro:property name="body_link_height" value="0.08" />
+    <xacro:property name="body_link_width" value="0.2" />
+    <xacro:property name="body_link_length" value="0.3" />
+    <xacro:property name="body_h" value="0.4" />
+
+    <!-- leg_calf properties -->
+    <xacro:property name="calf_height" value="0.02" />
+    <xacro:property name="calf_width" value="0.02" />
+    <xacro:property name="calf_len" value="0.2" />
+
+    <!-- leg_thigh properties -->
+    <xacro:property name="thigh_height" value="0.02" />
+    <xacro:property name="thigh_width" value="0.04" />
+    <xacro:property name="thigh_len" value="0.2" />
+
+    <!-- leg_shoulder properties -->
+    <xacro:property name="shoulder_radius" value="0.04" />
+    <xacro:property name="shoulder_len" value="0.04" />
+
+    <!-- point_feet properties -->
+    <xacro:property name="point_feet_radius" value="0.017675" />
+
+    <!-- Inertial matrix -->
+    <xacro:macro name="inertial_matrix" params="mass">
+        <inertial>
+            <mass value="${mass}" />
+            <inertia ixx="0.166667" ixy="0" ixz="0" iyy="0.166667" iyz="0" izz="0.166667"/>
+        </inertial>
+    </xacro:macro>
+
+    <!-- dog_base_link -->
+    <link name="dog_base_link">
+        <visual>
+            <origin xyz="0 0 ${body_link_height/2+body_link_height/20}" rpy="0 0 0" />
+            <geometry>
+                <box size="${body_link_length/10} ${body_link_width/10} ${body_link_height/10}" />
+            </geometry>
+            <material name="White" />
+        </visual>
+    </link>
+
+    <!-- body_link -->
+    <link name="body_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${body_link_length} ${body_link_width} ${body_link_height}" />
+            </geometry>
+            <material name="White" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${body_link_length/2} ${body_link_width} ${body_link_height}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="5" />
+    </link>
+
+    <!-- left_leg -->
+    <xacro:macro name="left_leg" params="leg_name">
+        <link name="${leg_name}_shoulder_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="1.57 0 0" />
+                <geometry>
+                    <cylinder radius="${shoulder_radius}" length="${shoulder_len}" />
+                </geometry>
+                <material name="White" />
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="1.57 0 0" />
+                <geometry>
+                    <cylinder radius="${shoulder_radius/2}" length="${shoulder_len/2}" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.68" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.2"/>
+            </inertial>
+            <!-- <xacro:inertial_matrix mass="0.68" /> -->
+        </link>
+
+        <link name="${leg_name}_thigh_link">
+            <visual>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${thigh_width} ${thigh_len} ${thigh_height}" />
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${thigh_width/2} ${thigh_len/2} ${thigh_height/2}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_matrix mass="1" />
+        </link>
+
+        <link name="${leg_name}_calf_link">
+            <visual>
+                <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${calf_width} ${calf_len} ${calf_height}" />
+                </geometry>
+                <material name="White" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${calf_width/2} ${calf_len/2} ${calf_height/2}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_matrix mass="0.166" />
+        </link>
+
+        <link name="${leg_name}_feet_link">
+            <visual>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <sphere radius="${point_feet_radius}" />
+                </geometry>
+                <material name="Black" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <sphere radius="${point_feet_radius}" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.06"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+            </inertial>
+        </link>
+
+        <joint name="${leg_name}_shoulder_joint" type="revolute">
+            <origin xyz="0 ${shoulder_len/2+calf_height/2} 0" rpy="-1.57 0 0" />
+            <parent link="${leg_name}_shoulder_link" />
+            <child link="${leg_name}_thigh_link" />
+            <axis xyz="0 0 1" />
+            <limit effort="55" lower="-${M_PI}" upper="${M_PI}" velocity="52.4" />
+            <dynamics damping="0" friction="0" />
+        </joint>
+
+        <joint name="${leg_name}_keen_joint" type="revolute">
+            <origin xyz="0 ${thigh_len} 0" rpy="0 0 0" />
+            <parent link="${leg_name}_thigh_link" />
+            <child link="${leg_name}_calf_link" />
+            <axis xyz="0 0 1" />
+            <limit effort="55" lower="0.0" upper="${M_PI}" velocity="52.4" />
+            <dynamics damping="0" friction="0" />
+        </joint>
+
+        <joint name="${leg_name}_feet_joint" type="fixed">
+            <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+            <parent link="${leg_name}_calf_link" />
+            <child link="${leg_name}_feet_link" />
+            <axis xyz="0 0 1" />
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="right_leg" params="leg_name">
+        <link name="${leg_name}_shoulder_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="1.57 0 0" />
+                <geometry>
+                    <cylinder radius="${shoulder_radius}" length="${shoulder_len}" />
+                </geometry>
+                <material name="White" />
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="1.57 0 0" />
+                <geometry>
+                    <cylinder radius="${shoulder_radius/2}" length="${shoulder_len/2}" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.68" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.2"/>
+            </inertial>
+        </link>
+
+        <link name="${leg_name}_thigh_link">
+            <visual>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${thigh_width} ${thigh_len} ${thigh_height}" />
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${thigh_width/2} ${thigh_len/2} ${thigh_height/2}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_matrix mass="1" />
+        </link>
+
+        <link name="${leg_name}_calf_link">
+            <visual>
+                <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${calf_width} ${calf_len} ${calf_height}" />
+                </geometry>
+                <material name="White" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="${calf_width/2} ${calf_len/2} ${calf_height/2}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_matrix mass="0.166" />
+        </link>
+
+        <link name="${leg_name}_feet_link">
+            <visual>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <sphere radius="${point_feet_radius}" />
+                </geometry>
+                <material name="Black" />
+            </visual>
+            <collision>
+                <origin xyz="0 ${thigh_len/2} 0" rpy="0 0 0" />
+                <geometry>
+                    <sphere radius="${point_feet_radius}" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.06"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+            </inertial>
+        </link>
+
+        <joint name="${leg_name}_shoulder_joint" type="revolute">
+            <origin xyz="0 -${shoulder_len/2+calf_height/2} 0" rpy="-1.57 0 0" />
+            <parent link="${leg_name}_shoulder_link" />
+            <child link="${leg_name}_thigh_link" />
+            <axis xyz="0 0 1" />
+            <limit effort="55" lower="-${M_PI}" upper="${M_PI}" velocity="52.4" />
+            <dynamics damping="0" friction="0" />
+        </joint>
+
+        <joint name="${leg_name}_keen_joint" type="revolute">
+            <origin xyz="0 ${thigh_len} 0" rpy="0 0 0" />
+            <parent link="${leg_name}_thigh_link" />
+            <child link="${leg_name}_calf_link" />
+            <axis xyz="0 0 1" />
+            <limit effort="55" lower="0.0" upper="${M_PI}" velocity="52.4" />
+            <dynamics damping="0" friction="0" />
+        </joint>
+
+        <joint name="${leg_name}_feet_joint" type="fixed">
+            <origin xyz="0 ${calf_len/2} 0" rpy="0 0 0" />
+            <parent link="${leg_name}_calf_link" />
+            <child link="${leg_name}_feet_link" />
+            <axis xyz="0 0 1" />
+        </joint>
+    </xacro:macro>
+
+    <!-- legs -->
+    <xacro:left_leg leg_name="left_forward_leg" />
+    <xacro:left_leg leg_name="left_back_leg" />
+    <xacro:right_leg leg_name="right_forward_leg" />
+    <xacro:right_leg leg_name="right_back_leg" />
+
+    <!-- base_body_joint -->
+    <joint name="base_body_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <!--up: rpy="3.14 0 0" down: rpy="0 0 0"-->
+        <parent link="dog_base_link" />
+        <child link="body_link" />
+    </joint>
+
+    <!-- leg_body_joint -->
+    <joint name="left_forward_leg_body_joint" type="revolute">
+        <origin xyz="${body_link_length/2+shoulder_radius} ${body_link_width/2-shoulder_len/4} 0" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="left_forward_leg_shoulder_link" />
+        <axis xyz="1 0 0" />
+        <limit effort="20" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="52.4" />
+        <dynamics damping="0" friction="0" />
+    </joint>
+
+    <joint name="left_back_leg_body_joint" type="revolute">
+        <origin xyz="-${body_link_length/2+shoulder_radius} ${body_link_width/2-shoulder_len/4} 0" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="left_back_leg_shoulder_link" />
+        <axis xyz="1 0 0" />
+        <limit effort="20" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="52.4" />
+        <dynamics damping="0" friction="0" />
+    </joint>
+
+    <joint name="right_forward_leg_body_joint" type="revolute">
+        <origin xyz="${body_link_length/2+shoulder_radius} -${body_link_width/2-shoulder_len/4} 0" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="right_forward_leg_shoulder_link" />
+        <axis xyz="1 0 0" />
+        <limit effort="20" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="52.4" />
+        <dynamics damping="0" friction="0" />
+    </joint>
+
+    <joint name="right_back_leg_body_joint" type="revolute">
+        <origin xyz="-${body_link_length/2+shoulder_radius} -${body_link_width/2-shoulder_len/4} 0" rpy="0 0 0" />
+        <parent link="body_link" />
+        <child link="right_back_leg_shoulder_link" />
+        <axis xyz="1 0 0" />
+        <limit effort="20" lower="-${M_PI/2}" upper="${M_PI/2}" velocity="52.4" />
+        <dynamics damping="0" friction="0" />
+    </joint>
+
+    <!-- ros_control plugin -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/dog</robotNamespace>
+        </plugin>
+    </gazebo>
+
+    <!-- Transmissions for ROS Control -->
+    <xacro:macro name="transmission_block" params="joint_name">
+        <transmission name="tran_dog">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor_dog">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:transmission_block joint_name="left_forward_leg_body_joint"/>
+    <xacro:transmission_block joint_name="left_forward_leg_shoulder_joint"/>
+    <xacro:transmission_block joint_name="left_forward_leg_keen_joint"/>
+
+    <xacro:transmission_block joint_name="left_back_leg_body_joint"/>
+    <xacro:transmission_block joint_name="left_back_leg_shoulder_joint"/>
+    <xacro:transmission_block joint_name="left_back_leg_keen_joint"/>
+
+    <xacro:transmission_block joint_name="right_forward_leg_body_joint"/>
+    <xacro:transmission_block joint_name="right_forward_leg_shoulder_joint"/>
+    <xacro:transmission_block joint_name="right_forward_leg_keen_joint"/>
+
+    <xacro:transmission_block joint_name="right_back_leg_body_joint"/>
+    <xacro:transmission_block joint_name="right_back_leg_shoulder_joint"/>
+    <xacro:transmission_block joint_name="right_back_leg_keen_joint"/>
+
+    <!-- /////////////////////////// ARM ///////////////////////////////// -->
+    <!-- /////////////////////////// ARM ///////////////////////////////// -->
+    <!-- /////////////////////////// ARM ///////////////////////////////// -->
+
+    <!-- <xacro:include filename="arm.xacro" /> -->
+
+
+</robot>

@@ -16,9 +16,9 @@
                                           finger_joint2_position_controller"/>
 
     <!-- run node robot_state_publisher，pub tf  -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    <node name="arm_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
           respawn="false" output="screen">
-        <remap from="/joint_states" to="/arm/joint_states" />
+        <remap from="/arm/joint_states" to="/joint_states" />
     </node>
 
 </launch>

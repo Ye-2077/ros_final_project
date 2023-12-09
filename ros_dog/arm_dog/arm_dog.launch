@@ -1,0 +1,15 @@
+<!-- launch the xacro or urdf in gazebo -->
+<!-- collect and launch all sub-launch file in here -->
+<launch>
+    <param name="robot_description" command="$(find xacro)/xacro $(find ros_dog)/arm_dog/xacro/arm_dog.xacro" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find ros_dog)/config/gazebo_world/test_arm_dog_env.world" />
+    </include>
+
+    <!-- keep include order of arm-dog -->
+    <include file="$(find ros_arm)/launch/arm_gazebo_control.launch" />
+    <include file="$(find ros_dog)/launch/dog_simple_control.launch" />
+
+    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model arm_dog -param robot_description" />
+
+</launch>

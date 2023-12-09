@@ -2,50 +2,50 @@ dog:
   gazebo_ros_control:
     pid_gains:
       right_forward_leg_body_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       right_forward_leg_shoulder_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       right_forward_leg_keen_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       right_back_leg_body_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       right_back_leg_shoulder_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       right_back_leg_keen_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_forward_leg_body_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_forward_leg_shoulder_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_forward_leg_keen_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_back_leg_body_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_back_leg_shoulder_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
       left_back_leg_keen_joint:
-        p: 1.0
-        i: 0.1
-        d: 0.05
+        p: 20.0
+        i: 0.0
+        d: 1.0
