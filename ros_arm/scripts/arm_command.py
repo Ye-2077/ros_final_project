@@ -166,8 +166,6 @@ class ArmCommand(object):
     def get_joint_value(self):
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
 
-        j = JointState
-        j.header.stamp
         # visualize stamp
         print("stamp is: {}".format(joint_state.header.stamp))
 
