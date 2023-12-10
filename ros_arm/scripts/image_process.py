@@ -29,6 +29,7 @@ class ImgProcess(object):
 
     # def image_process(self, image):
     	# 将图像转化为hsv色彩空间
+        image = None
         image_hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
 		
 		# 对目标颜色进行提取
@@ -127,7 +128,7 @@ class ImgProcess(object):
         # 使用image_process来处理图片
         processed_image, midpoint, min_point, max_point, point_exist = self.image_process(frame)
         self.midpoint.data = midpoint
-        self.image_range.data = min_point + max_point
+        self.image_range.data = max_point-min_point
 
         if point_exist:
             rospy.loginfo('midpoint: %s, image_range: %s, %s', midpoint, min_point, max_point)
