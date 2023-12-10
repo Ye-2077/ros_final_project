@@ -27,11 +27,11 @@
 
     <!-- link2 properties -->
     <xacro:property name="link2_width" value="0.03" />
-    <xacro:property name="link2_len" value="0.22" />
+    <xacro:property name="link2_len" value="0.2" />
 
     <!-- link3 properties -->
     <xacro:property name="link3_width" value="0.03" />
-    <xacro:property name="link3_len" value="0.14" />
+    <xacro:property name="link3_len" value="0.2" />
 
     <!-- link4 properties -->
     <xacro:property name="link4_width" value="0.025" />
@@ -111,7 +111,7 @@
         <parent link="base_link"/>
         <child link="link1"/>
         <origin xyz="0 0 0.02" rpy="0 ${M_PI/2} 0" />
-        <axis xyz="-1 0 0" />
+        <axis xyz="1 0 0" />
         <limit effort="300" velocity="1" lower="-2.96" upper="2.96"/>
         <dynamics damping="50" friction="1"/>
     </joint>
@@ -128,7 +128,7 @@
         <collision>
             <origin xyz="-${link1_len/2} 0 0" rpy="0 ${M_PI/2} 0" />
             <geometry>
-                <cylinder radius="${link1_width}" length="${link1_len}"/>
+                <cylinder radius="${link1_width/10}" length="${link1_len/10}"/>
             </geometry>
         </collision>
         <xacro:inertial_matrix mass="1"/>
@@ -156,7 +156,7 @@
         <collision>
             <origin xyz="0 0 ${link2_len/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder radius="${link2_width}" length="${link2_len}"/>
+                <cylinder radius="${link2_width/10}" length="${link2_len/10}"/>
             </geometry>
         </collision>
         <xacro:inertial_matrix mass="1"/>
@@ -183,7 +183,7 @@
         <collision>
             <origin xyz="0 0 -${link3_len/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder radius="${link3_width}" length="${link3_len}"/>
+                <cylinder radius="${link3_width/10}" length="${link3_len/10}"/>
             </geometry>
         </collision>
         <xacro:inertial_matrix mass="1"/>
@@ -220,7 +220,7 @@
         <parent link="link4"/>
         <child link="link5"/>
         <origin xyz="${link4_len} 0.0 0.0" rpy="0 ${M_PI/2} 0" />
-        <axis xyz="1 0 0" />
+        <axis xyz="-1 0 0" />
         <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
         <dynamics damping="50" friction="1"/>
     </joint>

@@ -375,10 +375,10 @@
       </spot>
     </light>
     <state world_name='default'>
-      <sim_time>523 864000000</sim_time>
-      <real_time>204 20140219</real_time>
-      <wall_time>1699771330 334414553</wall_time>
-      <iterations>201581</iterations>
+      <sim_time>595 181000000</sim_time>
+      <real_time>72 579044906</real_time>
+      <wall_time>1702200178 787773907</wall_time>
+      <iterations>71317</iterations>
       <model name='box_blue'>
         <pose>0.26133 -0.102348 0.019571 1e-06 -1.3e-05 -4e-06</pose>
         <scale>1 1 1</scale>
@@ -390,32 +390,32 @@
         </link>
       </model>
       <model name='box_green'>
-        <pose>0.280572 -0.006903 0.019573 -7e-06 -2.3e-05 6e-06</pose>
+        <pose>0.340837 -0.006903 0.019572 -5e-06 -8.2e-05 1.4e-05</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.280572 -0.006903 0.019573 -7e-06 -2.3e-05 6e-06</pose>
+          <pose>0.340837 -0.006903 0.019572 -5e-06 -8.2e-05 1.4e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 2e-06</acceleration>
+          <acceleration>0 0 -9.8 0 -0 4e-06</acceleration>
           <wrench>0 0 -0.49 0 -0 0</wrench>
         </link>
       </model>
       <model name='box_red'>
-        <pose>0.21733 -0.026978 0.019572 -5e-06 -8.4e-05 5.6e-05</pose>
+        <pose>0.273542 -0.026975 0.019566 -5e-06 8.5e-05 5.2e-05</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.21733 -0.026978 0.019572 -5e-06 -8.4e-05 5.6e-05</pose>
+          <pose>0.273542 -0.026975 0.019566 -5e-06 8.5e-05 5.2e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 5e-06</acceleration>
+          <acceleration>0 0 -9.8 0 0 -5e-06</acceleration>
           <wrench>0 0 -0.49 0 -0 0</wrench>
         </link>
       </model>
       <model name='box_yellow'>
-        <pose>0.251922 0.067132 0.019566 8.9e-05 1e-06 -5e-06</pose>
+        <pose>0.251922 0.067132 0.019566 8.8e-05 -0 -7e-06</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.251922 0.067132 0.019566 8.9e-05 1e-06 -5e-06</pose>
+          <pose>0.251922 0.067132 0.019566 8.8e-05 -0 -7e-06</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 1e-06</acceleration>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -0.49 0 -0 0</wrench>
         </link>
       </model>
@@ -430,23 +430,23 @@
         </link>
       </model>
       <model name='unit_box'>
-        <pose>0.068311 -3.48167 0.5 0 -0 0</pose>
+        <pose>0.068301 -3.48167 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.068311 -3.48167 0.5 0 -0 0</pose>
+          <pose>0.068301 -3.48167 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-9.78197 0.006191 9.78231 -0.012424 -0.714369 -6.1e-05</acceleration>
-          <wrench>-9.78197 0.006191 9.78231 0 -0 0</wrench>
+          <acceleration>-9.78197 -0.006191 9.78231 0.012424 -0.714369 6.1e-05</acceleration>
+          <wrench>-9.78197 -0.006191 9.78231 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_0'>
-        <pose>0.121934 3.48434 0.5 0 -0 0</pose>
+        <pose>0.121937 3.48435 0.5 0 -0 5e-06</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.121934 3.48434 0.5 0 -0 0</pose>
+          <pose>0.121937 3.48435 0.5 0 -0 5e-06</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.004709 9.78112 9.78158 -0.712677 -0.009414 4.3e-05</acceleration>
-          <wrench>-0.004709 9.78112 9.78158 0 -0 0</wrench>
+          <acceleration>0.00476 -9.78112 9.78158 0.712677 0.009517 4.3e-05</acceleration>
+          <wrench>0.00476 -9.78112 9.78158 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_cylinder'>
@@ -488,7 +488,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>0.126314 -0.233245 1.15411 -2e-06 1.5698 0.347366</pose>
+        <pose>0.25178 -1.04755 0.226051 0 0.141796 1.69536</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
