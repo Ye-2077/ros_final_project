@@ -100,7 +100,11 @@ class ImgProcess(object):
         # 使用image_process来处理图片
         processed_image, midpoint, min_point, max_point, point_exist = self.image_process(frame)
         self.midpoint.data = midpoint
+<<<<<<< Updated upstream
         self.image_range.data = min_point + max_point
+=======
+        self.image_range.data = np.array(max_point)-np.array(min_point)
+>>>>>>> Stashed changes
 
         if point_exist:
             rospy.loginfo('midpoint: %s, image_range: %s, %s', midpoint, min_point, max_point)

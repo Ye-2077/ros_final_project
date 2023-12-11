@@ -42,10 +42,21 @@ class ArmControl(object):
 
 
     def main_callback(self, exist):
+<<<<<<< Updated upstream
         try:
             service_available = rospy.wait_for_service('/arm_mover/arm_mover', timeout=1)
             print(f"Service '{'/arm_mover/arm_mover'}' is available!")
             self.command_callback(exist.data)
+=======
+        if self.z_at_goal:
+            rospy.loginfo("At goal")
+            gripper = self.inverse_kinetic.grasp()
+            self.set_gripper(gripper)
+            print(self.msg.finger_joint1)
+            print(self.msg.finger_joint2)
+            rospy.sleep(1)
+            self.set_joint(self.joint)
+>>>>>>> Stashed changes
 
         except rospy.exceptions.ROSException:
             print('Service not available within the specified timeout.')

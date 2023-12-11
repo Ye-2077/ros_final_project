@@ -289,6 +289,13 @@
             </geometry>
             <material name="White" />
         </visual>
+        <!-- <collision>
+            <origin xyz="0.04 -0.03 0"/>
+            <geometry>
+                <box size="${left_gripper_len} ${left_gripper_width} ${left_gripper_height}" />
+            </geometry>
+            <material name="White" />
+        </collision> -->
         <xacro:inertial_matrix mass="1"/>
     </link>
 
@@ -307,6 +314,13 @@
             </geometry>
             <material name="White" />
         </visual>
+        <!-- <collision>
+            <origin xyz="0.04 0.03 0"/>
+            <geometry>
+                <box size="${right_gripper_len} ${right_gripper_width} ${right_gripper_height}" />
+            </geometry>
+            <material name="White" />
+        </collision> -->
         <xacro:inertial_matrix mass="1"/>
     </link>
 
@@ -346,9 +360,37 @@
     </gazebo>
     <gazebo reference="gripper_finger_link1">
         <material>Gazebo/White</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <kp>1000000.0</kp>
+        <kd>100000.0</kd>
+        <slip1>0</slip1>
+        <slip2>0</slip2>
+        <minDepth>0.001</minDepth>
+        <maxVel>0</maxVel>
+        <torsional>
+            <ode>
+                <coefficient>1000</coefficient>
+                <slip>0</slip>
+            </ode>
+        </torsional>
     </gazebo>
     <gazebo reference="gripper_finger_link2">
         <material>Gazebo/White</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <kp>1000000.0</kp>
+        <kd>100000.0</kd>
+        <slip1>0</slip1>
+        <slip2>0</slip2>
+        <minDepth>0.001</minDepth>
+        <maxVel>0</maxVel>
+        <torsional>
+            <ode>
+                <coefficient>1000</coefficient>
+                <slip>0</slip>
+            </ode>
+        </torsional>
     </gazebo>
     
     <!-- Transmissions for ROS Control -->
@@ -377,6 +419,21 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/arm</robotNamespace>
+        </plugin>
+         <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+            <arm>
+                <arm_name>arm</arm_name>
+                <palm_link>link6</palm_link>
+                <gripper_link>gripper_finger_link1</gripper_link>
+                <gripper_link>gripper_finger_link2</gripper_link>
+            </arm>
+            <forces_angle_tolerance>100</forces_angle_tolerance>
+            <update_rate>40</update_rate>
+            <grip_count_threshold>1</grip_count_threshold>
+            <max_grip_count>4</max_grip_count>
+            <release_tolerance>0.005</release_tolerance>
+            <disable_collisions_on_attach>true</disable_collisions_on_attach>
+            <contact_topic>__default_topic__</contact_topic>
         </plugin>
     </gazebo>
 

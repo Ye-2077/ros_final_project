@@ -18,6 +18,15 @@ def goal_error(pos_joint, goal_joint):
     result = abs(pos_joint - goal_joint) <= abs(tolerance)
     return result
 
+def polynomial_interpolation(start, end, t):
+    """
+    Third-order polynomial interpolation function.
+    - start: Initial value
+    - end: Final value
+    - t: Interpolation parameter (0 to 1)
+    """
+    return start + (end - start) * (3 * t**2 - 2 * t**3)
+
 
 def move_arm(pos_joints):
     '''
@@ -31,6 +40,10 @@ def move_arm(pos_joints):
     for i in range(len(pos_joints)):
         globals()['pub_j'+str(i+1)].publish(pos_joints[i])
 
+
+    joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
+    initial_positions = [joint_state.position[i] for i in range(len(pos_joints))]
+
     while True:
         current_time = rospy.Time.now()
         elapsed_time = current_time - time_elapsed
@@ -41,8 +54,15 @@ def move_arm(pos_joints):
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
         result = True
 
+        # Interpolate joint positions using the polynomial
+        interpolation_factor = elapsed_time.to_sec() / 1  # Adjust the time duration as needed
+        interpolated_positions = [polynomial_interpolation(initial, target, interpolation_factor)
+                                  for initial, target in zip(initial_positions, pos_joints)]
+
         for i in range(len(pos_joints)):
-            result = goal_error(joint_state.position[i], pos_joints[i]) and result
+            result = goal_error(joint_state.position[i], interpolated_positions[i]) and result
+
+
         
         if result:
             time_elapsed = joint_state.header.stamp - time_elapsed

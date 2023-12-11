@@ -853,18 +853,19 @@
           <surface>
             <friction>
               <ode>
-                <mu>1</mu>
-                <mu2>1</mu2>
-                <fdir1>0 0 0</fdir1>
+                <mu>1000</mu>
+                <mu2>1000</mu2>
+                <fdir1>1 1 1</fdir1>
                 <slip1>0</slip1>
                 <slip2>0</slip2>
               </ode>
               <torsional>
-                <coefficient>1</coefficient>
+                <coefficient>1000</coefficient>
                 <patch_radius>0</patch_radius>
                 <surface_radius>0</surface_radius>
-                <use_patch_radius>1</use_patch_radius>
+                <use_patch_radius>0</use_patch_radius>
                 <ode>
+                  <coefficient>1000000</coefficient>
                   <slip>0</slip>
                 </ode>
               </torsional>
