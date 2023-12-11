@@ -8,7 +8,7 @@
 
 ---
 
-## Workspace and Instrcution
+## Workspace Configue
 
 **1. Create your workspace**
   
@@ -25,14 +25,30 @@ $ cd ~/[your workspace name]/src
 $ git clone
 ```
 
-**3. Build workspace**
+**3. Download plugin GripperGraspFix**
+Download Gazebo plugin GripperGraspFix to make arm's gripper grasping process works.
+The wike of this plugin: https://github.com/JenniferBuehler/gazebo-pkgs/wiki/The-Gazebo-grasp-fix-plugin
 
+```
+$ cd [work_space/src]
+$ git clone https://github.com/JenniferBuehler/general-message-pkgs.git
+$ git clone https://github.com/JenniferBuehler/gazebo-pkgs.git
+```
+
+**4. Build workspace**
 Here we advice you to use `catkin build` instead of `catkin_make`  
+
 ```
 $ cd ~/[your workspace name]  
 $ catkin build
 ```
 
+**5. Chmod the python file**
+The main code written in python, you can directly run these with `python path_to_file/filename.py`.
+If you want to run these files more conviently with `rosrun`, please run fellow command
+```
+chmod 777 path_to_file/filename.py
+```
 
 ---
 
