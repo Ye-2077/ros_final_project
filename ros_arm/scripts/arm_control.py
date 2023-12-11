@@ -16,7 +16,7 @@ class ArmControl(object):
         # Variables
         ## ros
         self.start_time = rospy.Time.now().to_sec()
-        self.r = rospy.Rate(5)
+        self.r = rospy.Rate(10)
         self.count = 0
 
         ## target

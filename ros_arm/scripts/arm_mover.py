@@ -14,9 +14,19 @@ def goal_error(pos_joint, goal_joint):
     - param goal_joint: goal joint position
     '''
 
-    tolerance = .05 # error tolerance
+    tolerance = .05  # error tolerance
     result = abs(pos_joint - goal_joint) <= abs(tolerance)
     return result
+
+
+def polynomial_interpolation(start, end, t):
+    """
+    Third-order polynomial interpolation function.
+    - start: Initial value
+    - end: Final value
+    - t: Interpolation parameter (0 to 1)
+    """
+    return start + (end - start) * (3 * t**2 - 2 * t**3)
 
 
 def move_arm(pos_joints):
@@ -26,10 +36,13 @@ def move_arm(pos_joints):
     '''
 
     time_elapsed = rospy.Time.now()
-    
 
     for i in range(len(pos_joints)):
         globals()['pub_j'+str(i+1)].publish(pos_joints[i])
+    
+    joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
+    initial_positions = [joint_state.position[i]
+                         for i in range(len(pos_joints))]
 
     while True:
         current_time = rospy.Time.now()
@@ -41,9 +54,16 @@ def move_arm(pos_joints):
         joint_state = rospy.wait_for_message('/arm/joint_states', JointState)
         result = True
 
+        # Interpolate joint positions using the polynomial
+        # Adjust the time duration as needed
+        interpolation_factor = elapsed_time.to_sec() / 1
+        interpolated_positions = [polynomial_interpolation(initial, target, interpolation_factor)
+                                  for initial, target in zip(initial_positions, pos_joints)]
+
         for i in range(len(pos_joints)):
-            result = goal_error(joint_state.position[i], pos_joints[i]) and result
-        
+            result = goal_error(
+                joint_state.position[i], interpolated_positions[i]) and result
+
         if result:
             time_elapsed = joint_state.header.stamp - time_elapsed
             break
@@ -75,7 +95,8 @@ def handle_move_request(req):
     joint6 = req.joint6
     finger_joint1 = req.finger_joint1
     finger_joint2 = req.finger_joint2
-    joints = [joint1, joint2, joint3, joint4, joint5, joint6, finger_joint1, finger_joint2]
+    joints = [joint1, joint2, joint3, joint4,
+              joint5, joint6, finger_joint1, finger_joint2]
     clamp_joint = [0, 0, 0, 0, 0, 0, 0, 0]
 
     for i in range(len(joints)):
@@ -95,14 +116,22 @@ def mover_service():
 
 
 if __name__ == '__main__':
-    pub_j1 = rospy.Publisher('/arm/joint1_position_controller/command', Float64, queue_size=10)
-    pub_j2 = rospy.Publisher('/arm/joint2_position_controller/command', Float64, queue_size=10)
-    pub_j3 = rospy.Publisher('/arm/joint3_position_controller/command', Float64, queue_size=10)
-    pub_j4 = rospy.Publisher('/arm/joint4_position_controller/command', Float64, queue_size=10)
-    pub_j5 = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
-    pub_j6 = rospy.Publisher('/arm/joint6_position_controller/command', Float64, queue_size=10)
-    pub_j7 = rospy.Publisher('/arm/finger_joint1_position_controller/command', Float64, queue_size=10)
-    pub_j8 = rospy.Publisher('/arm/finger_joint2_position_controller/command', Float64, queue_size=10)
+    pub_j1 = rospy.Publisher(
+        '/arm/joint1_position_controller/command', Float64, queue_size=10)
+    pub_j2 = rospy.Publisher(
+        '/arm/joint2_position_controller/command', Float64, queue_size=10)
+    pub_j3 = rospy.Publisher(
+        '/arm/joint3_position_controller/command', Float64, queue_size=10)
+    pub_j4 = rospy.Publisher(
+        '/arm/joint4_position_controller/command', Float64, queue_size=10)
+    pub_j5 = rospy.Publisher(
+        '/arm/joint5_position_controller/command', Float64, queue_size=10)
+    pub_j6 = rospy.Publisher(
+        '/arm/joint6_position_controller/command', Float64, queue_size=10)
+    pub_j7 = rospy.Publisher(
+        '/arm/finger_joint1_position_controller/command', Float64, queue_size=10)
+    pub_j8 = rospy.Publisher(
+        '/arm/finger_joint2_position_controller/command', Float64, queue_size=10)
     try:
         mover_service()
     except rospy.ROSInterruptException:
