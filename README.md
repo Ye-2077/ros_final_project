@@ -10,102 +10,72 @@
 
 ## Workspace Configue
 
+*System: Ubuntu 20.04*  
+*ROS version: ros-noetic*  
+*Python: 3.9*
+
 **1. Create your workspace**
   
 ```
-$ cd [your workspace path]
-$ mkdir -p ~/[your workspace name]/src
+$ cd ~/[your_path]
+$ mkdir -p ~/[your_workspace_name]/src
 ```
 
 **2. Clone this reprosity**
 You can put this reprosity in workspace/src path
   
 ```
-$ cd ~/[your workspace name]/src
-$ git clone
+$ cd ~/[workspace]/src
+$ git clone https://github.com/Ye-2077/ros_final_project.git
 ```
 
 **3. Download plugin GripperGraspFix**
-Download Gazebo plugin GripperGraspFix to make arm's gripper grasping process works.
+
+GripperGraspFix is a gazebo plugin to make grasping process works.  
 The wike of this plugin: https://github.com/JenniferBuehler/gazebo-pkgs/wiki/The-Gazebo-grasp-fix-plugin
 
 ```
-$ cd [work_space/src]
+$ cd ~/[workspace]/src
 $ git clone https://github.com/JenniferBuehler/general-message-pkgs.git
 $ git clone https://github.com/JenniferBuehler/gazebo-pkgs.git
 ```
 
-**4. Build workspace**
-Here we advice you to use `catkin build` instead of `catkin_make`  
+**4. Build workspace**  
+
+Advice to use `catkin build` instead of `catkin_make`  
 
 ```
-$ cd ~/[your workspace name]  
+$ cd ~/[workspace]  
 $ catkin build
 ```
 
-**5. Chmod the python file**
-The main code written in python, you can directly run these with `python path_to_file/filename.py`.
+**5. Chmod the python file**  
+
+The main code written in python, you can directly run these with `python path_to_file/filename.py`.  
 If you want to run these files more conviently with `rosrun`, please run fellow command
 ```
-chmod 777 path_to_file/filename.py
+$ chmod 777 path_to_file/filename.py
 ```
 
 ---
 
-## Install Moveit!
+## Quik Start
 
-**1. Install Moveit**
+**1. arm grasp**
 
-System: Ubuntu 20.04  
-ROS version: ros-noetic  
-Refer to https://moveit.ros.org/install/source/
+Launch simulator form `arm_gazebo.launch`  
+Start the service from `arm_mover.py`  
+Start arm from `arm_control.py`  
+Start image process from `image_process.py`  
 
-This project includes the Moveit! in the `Moveit` package, you can just run below code to build the Moveit!
 ```
-$ catkin buld Moveit # run this in your workspace path
-```
+$ cd ~/[workspace]
+$ source dev/setup.bash
 
-Or you can ignore this and download by yourself (then please deleat the Moveit package and follow below steps)  
-You can refer to https://moveit.ros.org/install/source/
-
-- create new workspace or just in your own ws 
-```
-$ mkdir ~/ws_moveit
-$ cd ~/ws_moveit
-```
-- load the `${ROS_DISTRO}` variable, needed for the next step
-```
-$ source /opt/ros/noetic/setup.bash 
-```
-- download source code, in your workspace's root path
-```
-$ wstool init src
-$ wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall
-$ wstool update -t src
-$ rosdep install -y --from-paths src --ignore-src --rosdistro ${ROS_DISTRO}
-$ catkin config --extend /opt/ros/${ROS_DISTRO} --cmake-args -DCMAKE_BUILD_TYPE=Release
-```
-- build
-```
-$ catkin build
-$ source ~/{your_workspace}/devel/setup.bash # or .zsh, depending on your shell
-```
-**2. Check if Moveit works**  
-
-Refer to this: [MoveIt Quickstart in RViz](https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html)
-
----
-
-## Prepare for the Camera
-*this enable you to use your laptap's camera*
-
-- install camera-driver
-```
-$ sudo apt-get install ros-noetic-usb-cam
-```
-- test if it install correctly
-```
-$ roslaunch usb_cam usb_cam-test.launch
+$ roslaunch ros_arm arm_gazebo.launch
+$ rosrun ros_arm arm_mover.py
+$ rosrun ros_arm arm_control.py
+$ rosrun ros_arm image_process.py
 ```
 
 ---
