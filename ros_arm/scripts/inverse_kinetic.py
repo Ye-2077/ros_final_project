@@ -67,9 +67,8 @@ class inverse_kinetic:
         return joint , z_at_goal
     
     def grasp(self):
-        self.gripper[0] = 0.0047
-        self.gripper[1] = 0.0047
-
+        self.gripper[0] = 0.005
+        self.gripper[1] = 0.005
         gripper = self.gripper
         return gripper
 

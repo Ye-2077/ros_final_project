@@ -47,14 +47,14 @@
     <xacro:property name="link6_len" value="0.02" />
 
     <!-- Left gripper -->
-    <xacro:property name="left_gripper_len" value="0.08" />
+    <xacro:property name="left_gripper_len" value="0.06" />
     <xacro:property name="left_gripper_width" value="0.01" />
-    <xacro:property name="left_gripper_height" value="0.03" />
+    <xacro:property name="left_gripper_height" value="0.01" />
 
     <!-- Right gripper -->
-    <xacro:property name="right_gripper_len" value="0.08" />
+    <xacro:property name="right_gripper_len" value="0.06" />
     <xacro:property name="right_gripper_width" value="0.01" />
-    <xacro:property name="right_gripper_height" value="0.03" />
+    <xacro:property name="right_gripper_height" value="0.01" />
 
     <!-- Gripper frame -->
     <xacro:property name="grasp_frame_radius" value="0.001" />
@@ -284,19 +284,19 @@
     <!-- LEFT GRIPPER AFT LINK -->
     <link name="gripper_finger_link1">
         <visual>
-            <origin xyz="0.04 -0.03 0"/>
+            <origin xyz="${link6_len+left_gripper_len/2} -0.03 0"/>
             <geometry>
                 <box size="${left_gripper_len} ${left_gripper_width} ${left_gripper_height}" />
             </geometry>
             <material name="White" />
         </visual>
         <collision>
-            <origin xyz="0.04 -0.03 0"/>
+            <origin xyz="${link6_len+left_gripper_len/2} -0.03 0"/>
             <geometry>
-                <box size="${left_gripper_len/2} ${left_gripper_width} ${left_gripper_height}" />
+                <box size="${left_gripper_len} ${left_gripper_width} ${left_gripper_height}" />
             </geometry>
         </collision>
-        <contact_coefficients mu="200.0" kp="0.0" kd="0.0"/>
+        <contact_coefficients mu="1.0" kp="1.0" kd="1.0"/>
         <xacro:inertial_matrix mass="1"/>
     </link>
 
@@ -312,30 +312,30 @@
     <!-- RIGHT GRIPPER AFT LINK -->
     <link name="gripper_finger_link2">
         <visual>
-            <origin xyz="0.04 0.03 0"/>
+            <origin xyz="${link6_len+right_gripper_len/2} 0.03 0.0"/>
             <geometry>
                 <box size="${right_gripper_len} ${right_gripper_width} ${right_gripper_height}" />
             </geometry>
             <material name="White" />
         </visual>
         <collision>
-            <origin xyz="0.04 0.03 0"/>
+            <origin xyz="${link6_len+right_gripper_len/2} 0.03 0"/>
             <geometry>
-                <box size="${right_gripper_len/2} ${right_gripper_width} ${right_gripper_height}" />
+                <box size="${right_gripper_len} ${right_gripper_width} ${right_gripper_height}" />
             </geometry>
         </collision>
-        <contact_coefficients mu="200.0" kp="0.0" kd="0.0"/>
+        <!-- <contact_coefficients mu="1.0" kp="1.0" kd="1.0"/> -->
         <xacro:inertial_matrix mass="1"/>
     </link>
 
     <!-- Grasping frame -->
-    <link name="grasping_frame"/>
+    <!-- <link name="grasping_frame"/>
 
     <joint name="grasping_frame_joint" type="fixed">
         <parent link="link6"/>
         <child link="grasping_frame"/>
         <origin xyz="0.08 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <!-- /////////////////////////////////   camera   ////////////////////////////////////// -->
     <xacro:include filename="camera.xacro" />
@@ -401,22 +401,25 @@
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/arm</robotNamespace>
         </plugin>
+    </gazebo>
+
+    <gazebo>
         <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
             <arm>
                 <arm_name>arm</arm_name>
-                <!-- <palm_link> hand_link_name  </palm_link> -->
+                <palm_link> link6  </palm_link>
                 <gripper_link> gripper_finger_link1 </gripper_link>
+                <palm_link> link6  </palm_link>
                 <gripper_link> gripper_finger_link2 </gripper_link>
             </arm>
-            <forces_angle_tolerance>100</forces_angle_tolerance>
-            <update_rate>4</update_rate>
-            <grip_count_threshold>4</grip_count_threshold>
+            <forces_angle_tolerance>150</forces_angle_tolerance>
+            <update_rate>130</update_rate>
+            <grip_count_threshold>1</grip_count_threshold>
             <max_grip_count>8</max_grip_count>
-            <release_tolerance>0.005</release_tolerance>
-            <disable_collisions_on_attach>false</disable_collisions_on_attach>
+            <release_tolerance>0.1</release_tolerance>
+            <disable_collisions_on_attach>true</disable_collisions_on_attach>
             <contact_topic>__default_topic__</contact_topic>
         </plugin>
-
     </gazebo>
 
 </robot>

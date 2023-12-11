@@ -29,8 +29,8 @@ def mover():
         pub_j4.publish(0)
         pub_j5.publish(0)
         pub_j6.publish(0)
-        pub_g1.publish(0.015)
-        pub_g2.publish(0.015)
+        pub_g1.publish(-0.3)
+        pub_g2.publish(-0.3)
     rate.sleep()
 
 

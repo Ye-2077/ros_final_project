@@ -52,7 +52,9 @@ class ArmControl(object):
             rospy.loginfo("At goal")
             gripper = self.inverse_kinetic.grasp()
             self.set_gripper(gripper)
-            rospy.sleep(1)
+
+            rospy.sleep(2)
+            
             self.set_joint(self.joint)
 
 
