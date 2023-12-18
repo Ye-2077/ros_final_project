@@ -807,11 +807,9 @@
               <size>0.04 0.04 0.04</size>
             </box>
           </geometry>
-
           <pose>0 0 0 0 -0 0</pose>
           <transparency>0</transparency>
           <cast_shadows>1</cast_shadows>
-
           <material>
             <script>
               <name>Gazebo/Grey</name>
@@ -826,8 +824,6 @@
             <emissive>0 0 0 1</emissive>
           </material>
         </visual>
-
-
         <collision name='collision'>
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
@@ -837,14 +833,8 @@
           </geometry>
         </collision>
       </link>
-
-
-
       <mu1>5</mu1>
       <mu2>5</mu2>
-
-
-
       <pose>0.255197 0.010039 0 0 -0 0</pose>
     </model>
   </world>

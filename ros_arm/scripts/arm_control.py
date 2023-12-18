@@ -19,7 +19,7 @@ class ArmControl(object):
         self.r = rospy.Rate(10)
         self.count = 0
 
-        ## target
+        ## Constant
         self.joint = [0, math.pi/4, math.pi/2, 0, math.pi/4, 0]
         self.joint_home = [0, 0, 0, 0, 0, 0]
         
@@ -33,6 +33,8 @@ class ArmControl(object):
         # Service
         self.arm_mover = rospy.ServiceProxy('/arm_mover/arm_mover', GoalPosition)
         self.msg = GoalPositionRequest()
+        
+        # initial position
         self.set_joint(self.joint)
         self.set_gripper([0, 0])
 
@@ -53,7 +55,7 @@ class ArmControl(object):
             gripper = self.inverse_kinetic.grasp()
             self.set_gripper(gripper)
 
-            rospy.sleep(2)
+            rospy.sleep(1)
             
             self.set_joint(self.joint)
 
@@ -76,8 +78,6 @@ class ArmControl(object):
                     rospy.loginfo("  -midpoint: {}".format(self.midpoint.data))
                     rospy.loginfo("  -dx: {}".format(dx))
                     rospy.loginfo("  -dy: {}".format(dy))
-                    
-                    
                 
                 else:
                     rospy.loginfo("Gasping")

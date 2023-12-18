@@ -55,7 +55,6 @@ def move_arm(pos_joints):
         result = True
 
         # Interpolate joint positions using the polynomial
-        # Adjust the time duration as needed
         interpolation_factor = elapsed_time.to_sec() / 1
         interpolated_positions = [polynomial_interpolation(initial, target, interpolation_factor)
                                   for initial, target in zip(initial_positions, pos_joints)]
