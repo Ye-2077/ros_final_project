@@ -27,8 +27,9 @@ class ImgProcess(object):
         rospy.loginfo("Waiting for image topics...")
         rospy.spin()
 
-    def image_process(self, image):
+    # def image_process(self, image):
     	# 将图像转化为hsv色彩空间
+        image = None
         image_hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
 		
 		# 对目标颜色进行提取
@@ -85,7 +86,34 @@ class ImgProcess(object):
         cv2.rectangle(res, (min_point[1], min_point[0]), (max_point[1], max_point[0]), (0, 0, 255))
 
         return res, midpoint, min_point, max_point, point_exist
+    
+    def image_process(self, image):
+        # 将图像转化为 HSV 色彩空间
+        image_hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
         
+        # 对目标颜色进行提取
+        orange_min = np.array([100, 128, 46])
+        orange_max = np.array([124, 255, 255])
+        mask = cv2.inRange(image_hsv, orange_min, orange_max)
+        
+        # 计算非零像素的坐标
+        non_zero_pixels = np.transpose(np.nonzero(mask))
+        num_pixels = len(non_zero_pixels)
+        
+        # 初始化数据
+        point_exist = num_pixels > 0
+        midpoint = min_point = max_point = [0, 0] if not point_exist else np.mean(non_zero_pixels, axis=0).astype(int)
+        
+        if point_exist:
+            min_point = np.min(non_zero_pixels, axis=0)
+            max_point = np.max(non_zero_pixels, axis=0)
+
+        res = cv2.bitwise_and(image, image, mask=mask)
+        cv2.circle(res, (midpoint[1], midpoint[0]), 5, (0, 0, 255), 2)
+        cv2.rectangle(res, (min_point[1], min_point[0]), (max_point[1], max_point[0]), (0, 0, 255))
+
+        return res, midpoint, min_point, max_point, point_exist
+
 	# 定义图像回调函数
     def img_process_callback(self, ros_image):
         try:
@@ -100,11 +128,15 @@ class ImgProcess(object):
         # 使用image_process来处理图片
         processed_image, midpoint, min_point, max_point, point_exist = self.image_process(frame)
         self.midpoint.data = midpoint
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         self.image_range.data = min_point + max_point
 =======
         self.image_range.data = np.array(max_point)-np.array(min_point)
 >>>>>>> Stashed changes
+=======
+        self.image_range.data = max_point-min_point
+>>>>>>> origin/master
 
         if point_exist:
             rospy.loginfo('midpoint: %s, image_range: %s, %s', midpoint, min_point, max_point)

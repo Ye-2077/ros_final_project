@@ -12,8 +12,8 @@
     
     <node pkg="ros_arm" type="arm_mover.py" name="arm_mover">
         <rosparam>
-            min_joint_angle: -1.57
-            max_joint_angle: 1.57
+            min_joint_angle: -3.14
+            max_joint_angle: 3.14
         </rosparam>
     </node>
 

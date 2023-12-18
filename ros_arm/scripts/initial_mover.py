@@ -12,6 +12,8 @@ def mover():
     pub_j4 = rospy.Publisher('/arm/joint4_position_controller/command', Float64, queue_size=10)
     pub_j5 = rospy.Publisher('/arm/joint5_position_controller/command', Float64, queue_size=10)
     pub_j6 = rospy.Publisher('/arm/joint6_position_controller/command', Float64, queue_size=10)
+    pub_g1 = rospy.Publisher('/arm/finger_joint1_position_controller/command', Float64, queue_size=10)
+    pub_g2 = rospy.Publisher('/arm/finger_joint2_position_controller/command', Float64, queue_size=10)
     rospy.init_node('arm_mover')
     rate = rospy.Rate(10)
     start_time = 0
@@ -21,12 +23,14 @@ def mover():
 
     while not rospy.is_shutdown():
         elapsed = rospy.Time.now().to_sec() - start_time
-        pub_j1.publish(math.pi/6)
-        pub_j2.publish(math.pi/4)
-        pub_j3.publish(math.pi/2)
+        pub_j1.publish(0)
+        pub_j2.publish(0)
+        pub_j3.publish(0)
         pub_j4.publish(0)
-        pub_j5.publish(math.pi/4)
+        pub_j5.publish(0)
         pub_j6.publish(0)
+        pub_g1.publish(0.015)
+        pub_g2.publish(0.015)
     rate.sleep()
 
 
