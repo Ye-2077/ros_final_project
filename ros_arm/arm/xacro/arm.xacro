@@ -334,11 +334,7 @@
     <joint name="grasping_frame_joint" type="fixed">
         <parent link="link6"/>
         <child link="grasping_frame"/>
-<<<<<<< HEAD
-        <origin xyz="0.08 0 0" rpy="0 0 .02"/>
-=======
         <origin xyz="0.08 0 0" rpy="0 0 0"/>
->>>>>>> origin/master
     </joint>
 
     <!-- /////////////////////////////////   camera   ////////////////////////////////////// -->
@@ -436,19 +432,11 @@
         <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
             <arm>
                 <arm_name>arm</arm_name>
-<<<<<<< HEAD
-                <palm_link> link6 </palm_link>
-                <gripper_link> gripper_finger_link1 </gripper_link>
-                <gripper_link> gripper_finger_link2 </gripper_link>
-            </arm>
-            <forces_angle_tolerance>120</forces_angle_tolerance>
-=======
                 <!-- <palm_link> hand_link_name  </palm_link> -->
                 <gripper_link> gripper_finger_link1 </gripper_link>
                 <gripper_link> gripper_finger_link2 </gripper_link>
             </arm>
             <forces_angle_tolerance>100</forces_angle_tolerance>
->>>>>>> origin/master
             <update_rate>4</update_rate>
             <grip_count_threshold>4</grip_count_threshold>
             <max_grip_count>8</max_grip_count>
